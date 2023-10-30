@@ -1,4 +1,4 @@
 part of 'history_bloc.dart';
 
 @immutable
-sealed class HistoryEvent {}
+abstract class HistoryEvent {}

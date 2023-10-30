@@ -1,4 +1,4 @@
 part of 'schedule_bloc.dart';
 
 @immutable
-sealed class ScheduleEvent {}
+abstract class ScheduleEvent {}

@@ -1,6 +1,6 @@
 part of 'lesson_detail_bloc.dart';
 
 @immutable
-sealed class LessonDetailState {}
+abstract class LessonDetailState {}
 
-final class LessonDetailInitial extends LessonDetailState {}
+class LessonDetailInitial extends LessonDetailState {}
