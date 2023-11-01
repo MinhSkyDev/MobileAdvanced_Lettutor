@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:lettutor/find_tutor/ui/find_tutor.dart';
+import 'package:lettutor/history/ui/history.dart';
+import 'package:lettutor/schedule/ui/Schedule.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -9,11 +12,51 @@ class DashboardScreen extends StatefulWidget {
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _DashboardScreenState extends State<DashboardScreen>
+    with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    TabController tabController = TabController(length: 5, vsync: this);
+
     return Scaffold(
-      body: SafeArea(child: Text("Dashboard page")),
+      body: SafeArea(
+        child: Column(
+          children: [
+            TabBar(
+              controller: tabController,
+              tabs: [
+                Tab(
+                  child: Text("Tutor"),
+                ),
+                Tab(
+                  child: Text("Schedule"),
+                ),
+                Tab(
+                  child: Text("History"),
+                ),
+                Tab(
+                  child: Text("Course"),
+                ),
+                Tab(
+                  child: Text("My Course"),
+                )
+              ],
+            ),
+            Expanded(
+              child: TabBarView(
+                controller: tabController,
+                children: [
+                  FindTutor(),
+                  ScheduleScreen(),
+                  HistoryScreen(),
+                  Text("Course"),
+                  Text("My Course"),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
