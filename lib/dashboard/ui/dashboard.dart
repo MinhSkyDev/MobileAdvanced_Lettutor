@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:lettutor/courses/ui/courses.dart';
 import 'package:lettutor/find_tutor/ui/find_tutor.dart';
 import 'package:lettutor/history/ui/history.dart';
 import 'package:lettutor/schedule/ui/Schedule.dart';
+
+import '../../my_course/ui/my_course.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -49,8 +52,8 @@ class _DashboardScreenState extends State<DashboardScreen>
                   FindTutor(),
                   ScheduleScreen(),
                   HistoryScreen(),
-                  Text("Course"),
-                  Text("My Course"),
+                  CoursesScreen(),
+                  MyCourseScreen(),
                 ],
               ),
             )

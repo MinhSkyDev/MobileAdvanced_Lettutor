@@ -3,6 +3,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:lettutor/common_component/common_rounded_button.dart';
 import 'package:lettutor/common_component/common_textfield.dart';
+import 'package:lettutor/find_tutor/ui/tutor_recommend_card.dart';
+
+import '../../model/Tutor.dart';
 
 class FindTutor extends StatefulWidget {
   const FindTutor({super.key});
@@ -107,6 +110,41 @@ class _FindTutorState extends State<FindTutor> {
               ),
             ],
           ),
+          Expanded(
+              child: ListView(
+            children: [
+              TutorRecommendItem(
+                currentTutor: Tutor(
+                    avatarURL:
+                        "https://media.post.rvohealth.io/wp-content/uploads/2020/08/732x549_Are_Random_Erections_Normal-1-732x549.jpg",
+                    name: "ABC",
+                    nationality: "Vietnam",
+                    rating: 5,
+                    skills: ["C++", "English"],
+                    description: "Im super good"),
+              ),
+              TutorRecommendItem(
+                currentTutor: Tutor(
+                    avatarURL:
+                        "https://media.post.rvohealth.io/wp-content/uploads/2020/08/732x549_Are_Random_Erections_Normal-1-732x549.jpg",
+                    name: "ABC",
+                    nationality: "Vietnam",
+                    rating: 5,
+                    skills: ["C++", "English"],
+                    description: "Im super good"),
+              ),
+              TutorRecommendItem(
+                currentTutor: Tutor(
+                    avatarURL:
+                        "https://media.post.rvohealth.io/wp-content/uploads/2020/08/732x549_Are_Random_Erections_Normal-1-732x549.jpg",
+                    name: "ABC",
+                    nationality: "Vietnam",
+                    rating: 5,
+                    skills: ["C++", "English"],
+                    description: "Im super good"),
+              )
+            ],
+          ))
         ],
       ),
     );

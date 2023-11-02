@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
         builder: (context, state) {
           switch (state.runtimeType) {
             case LoginSigninLoading:
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             default:
               return LoginInitialView();
           }

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 
-class CoursesScreen extends StatefulWidget {
-  const CoursesScreen({super.key});
+class MyCourseScreen extends StatefulWidget {
+  const MyCourseScreen({super.key});
 
   @override
-  State<CoursesScreen> createState() => _CoursesScreenState();
+  State<MyCourseScreen> createState() => _MyCourseScreenState();
 }
 
-class _CoursesScreenState extends State<CoursesScreen> {
+class _MyCourseScreenState extends State<MyCourseScreen> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,12 +20,13 @@ class _CoursesScreenState extends State<CoursesScreen> {
         Row(
           children: [
             const Text(
-              "Discover Courses",
+              "Your Current Courses",
               style: TextStyle(fontSize: 25),
             ),
           ],
         ),
       ],
     );
+    ;
   }
 }
