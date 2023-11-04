@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:lettutor/courses/ui/courses.dart';
 import 'package:lettutor/find_tutor/ui/find_tutor.dart';
-import 'package:lettutor/history/ui/history.dart';
+import 'package:lettutor/history/ui/history_screen.dart';
 import 'package:lettutor/schedule/ui/Schedule.dart';
 
 import '../../my_course/ui/my_course.dart';
@@ -29,19 +29,19 @@ class _DashboardScreenState extends State<DashboardScreen>
               controller: tabController,
               tabs: [
                 Tab(
-                  child: Text("Tutor"),
+                  child: TabBarText("Tutor"),
                 ),
                 Tab(
-                  child: Text("Schedule"),
+                  child: TabBarText("Schedule"),
                 ),
                 Tab(
-                  child: Text("History"),
+                  child: TabBarText("History"),
                 ),
                 Tab(
-                  child: Text("Course"),
+                  child: TabBarText("Course"),
                 ),
                 Tab(
-                  child: Text("My Course"),
+                  child: TabBarText("My Course"),
                 )
               ],
             ),
@@ -62,4 +62,9 @@ class _DashboardScreenState extends State<DashboardScreen>
       ),
     );
   }
+
+  Text TabBarText(String input) => Text(
+        input,
+        style: TextStyle(color: Colors.black45),
+      );
 }

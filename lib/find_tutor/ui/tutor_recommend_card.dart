@@ -15,13 +15,28 @@ class TutorRecommendItem extends StatelessWidget {
         child: Container(
           width: size.width * 0.8,
           height: size.height * 0.3,
-          child: Row(
-            children: [
-              CircleAvatar(
-                radius: 70,
-                backgroundImage: Image.network(currentTutor.avatarURL).image,
-              ),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 70,
+                  backgroundImage: Image.network(currentTutor.avatarURL).image,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(currentTutor.name),
+                    Text(currentTutor.nationality),
+                    Text("Direct Message"),
+                  ],
+                )
+              ],
+            ),
           ),
         ));
   }
