@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:lettutor/model/course.dart';
 
 class CourseCard extends StatelessWidget {
@@ -8,28 +6,28 @@ class CourseCard extends StatelessWidget {
   CourseCard({super.key, required this.currentCourse});
 
   String getNumLessonString() {
-    String result = currentCourse.numLessons.toString() + " Lessons";
+    String result = "${currentCourse.numLessons} Lessons";
     return result;
   }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double card_width = size.width * 0.8;
-    double card_height = size.height * 0.2;
+    double cardWidth = size.width * 0.8;
+    double cardHeight = size.height * 0.2;
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      child: Container(
-          width: card_width,
-          height: card_height,
+      child: SizedBox(
+          width: cardWidth,
+          height: cardHeight,
           child: Expanded(
             child: Column(
               children: [
                 //IMAGE
                 Image.network(
                   currentCourse.courseImageUrl,
-                  height: card_height * 0.6,
-                  width: card_width,
+                  height: cardHeight * 0.6,
+                  width: cardWidth,
                   fit: BoxFit.fill,
                 ),
                 Text(currentCourse.courseTitle),
@@ -41,15 +39,18 @@ class CourseCard extends StatelessWidget {
                 //DIFFICULTY AND LESSONS
                 Align(
                   alignment: Alignment.topLeft,
-                  child: Stack(
-                    children: [
-                      Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Text(currentCourse.courseDifficulty)),
-                      Align(
-                          alignment: Alignment.bottomRight,
-                          child: Text(getNumLessonString())),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 2),
+                    child: Stack(
+                      children: [
+                        Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Text(currentCourse.courseDifficulty)),
+                        Align(
+                            alignment: Alignment.bottomRight,
+                            child: Text(getNumLessonString())),
+                      ],
+                    ),
                   ),
                 )
               ],

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lettutor/history/ui/history_card.dart';
 import 'package:lettutor/model/history.dart';
 
@@ -39,19 +38,23 @@ class _HistoryScreenState extends State<HistoryScreen> {
           const SizedBox(height: 15),
           Row(
             children: [
-              const Text(
+              Text(
                 "History",
-                style: TextStyle(fontSize: 25),
+                style: GoogleFonts.montserrat(
+                  fontSize: 25,
+                  textStyle: const TextStyle(color: Colors.black87),
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ],
           ),
           Text(
             messageSchedule_1,
-            style: TextStyle(fontSize: 10),
+            style: normalTextStyle(),
           ),
           Text(
             messageSchedule_2,
-            style: TextStyle(fontSize: 10),
+            style: normalTextStyle(),
           ),
           Expanded(
             child: ListView(
@@ -66,6 +69,14 @@ class _HistoryScreenState extends State<HistoryScreen> {
           )
         ],
       ),
+    );
+  }
+
+  TextStyle normalTextStyle() {
+    return GoogleFonts.montserrat(
+      fontSize: 10,
+      textStyle: const TextStyle(color: Colors.black87),
+      fontWeight: FontWeight.w500,
     );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lettutor/courses/ui/courses.dart';
 import 'package:lettutor/find_tutor/ui/find_tutor.dart';
 import 'package:lettutor/history/ui/history_screen.dart';
@@ -48,7 +47,7 @@ class _DashboardScreenState extends State<DashboardScreen>
             Expanded(
               child: TabBarView(
                 controller: tabController,
-                children: [
+                children: const [
                   FindTutor(),
                   ScheduleScreen(),
                   HistoryScreen(),
@@ -65,6 +64,10 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   Text TabBarText(String input) => Text(
         input,
-        style: TextStyle(color: Colors.black45),
+        style: GoogleFonts.montserrat(
+          textStyle: const TextStyle(color: Colors.black45),
+          fontSize: 8,
+          fontWeight: FontWeight.w900,
+        ),
       );
 }

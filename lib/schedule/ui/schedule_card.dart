@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lettutor/model/schedule..dart';
 
 class ScheduleCard extends StatelessWidget {
@@ -23,8 +22,7 @@ class ScheduleCard extends StatelessWidget {
     int weekDay = currentDateTime.weekday - 1;
     int month = currentDateTime.month;
     int day = currentDateTime.day;
-    result =
-        weekdayMapping[weekDay] + "," + month.toString() + "/" + day.toString();
+    result = "${weekdayMapping[weekDay]},$month/$day";
 
     return result;
   }
@@ -34,7 +32,7 @@ class ScheduleCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Container(
+        child: SizedBox(
           width: size.width * 0.8,
           height: size.height * 0.2,
           child: Padding(
@@ -63,27 +61,37 @@ class ScheduleCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(currentSchedule.currentTutor.name),
-                            Text(currentSchedule.currentTutor.nationality),
-                            Text("Direct Message"),
+                            displayText(currentSchedule.currentTutor.name),
+                            displayText(
+                                currentSchedule.currentTutor.nationality),
+                            displayText("Direct Message"),
                           ],
                         ),
                         //Time Schedule
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(getCurrentScheduleDay()),
+                            displayText(getCurrentScheduleDay()),
                           ],
                         )
                       ],
                     ),
                   ),
-                  Text("Request for lesson"),
-                  Text(currentSchedule.request),
+                  displayText("Request for lesson"),
+                  displayText(currentSchedule.request),
                 ],
               ),
             ),
           ),
+        ));
+  }
+
+  Text displayText(String content) {
+    return Text(content,
+        style: GoogleFonts.montserrat(
+          fontSize: 10,
+          textStyle: const TextStyle(color: Colors.black87),
+          fontWeight: FontWeight.w500,
         ));
   }
 }
