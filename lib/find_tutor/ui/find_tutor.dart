@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:horizontal_list/horizontal_list.dart';
+import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/common_component/common_rounded_button.dart';
 import 'package:lettutor/common_component/common_textfield.dart';
 import 'package:lettutor/find_tutor/ui/tutor_recommend_card.dart';
@@ -47,17 +47,14 @@ class _FindTutorState extends State<FindTutor> {
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Text(
-                "Find a tutor",
-                style: TextStyle(fontSize: 25),
-              ),
+              TextHeader1("Find a tutor"),
             ],
           ),
           const SizedBox(
             height: 10,
           ),
-          Wrap(
-            alignment: WrapAlignment.spaceAround,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CommonTextField(
                   controller: tutorNameController,
@@ -66,6 +63,15 @@ class _FindTutorState extends State<FindTutor> {
                 width: 10,
               ),
               DropdownMenu<String>(
+                  inputDecorationTheme: InputDecorationTheme(
+                    isDense: true,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                    constraints:
+                        BoxConstraints.tight(const Size.fromHeight(40)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
                   initialSelection: languageList.first,
                   dropdownMenuEntries:
                       languageList.map<DropdownMenuEntry<String>>(
@@ -79,20 +85,23 @@ class _FindTutorState extends State<FindTutor> {
             height: 10,
           ),
           Row(
-            children: [Text("Select available tutoring time")],
+            children: [TextCommonBold("Select available tutoring time")],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              RoundedButtonBold("Select a day", () {}),
-              RoundedButtonBold("Start time ", () {}),
-              RoundedButtonBold("End time", () {})
-            ]
-                .map((widget) => Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: widget,
-                    ))
-                .toList(),
+          SafeArea(
+            child: HorizontalListView(
+              height: 40,
+              width: double.maxFinite,
+              list: [
+                RoundedButtonSmallBold("Select a day", () {}),
+                RoundedButtonSmallBold("Start time ", () {}),
+                RoundedButtonSmallBold("End time", () {})
+              ]
+                  .map((widget) => Padding(
+                        padding: const EdgeInsets.all(5),
+                        child: widget,
+                      ))
+                  .toList(),
+            ),
           ),
           Row(
             children: [
@@ -102,7 +111,7 @@ class _FindTutorState extends State<FindTutor> {
 
           //RECOMENDED TUTORS
           const SizedBox(height: 10),
-          Row(
+          const Row(
             children: [
               Text(
                 "Recommended Tutors",

@@ -15,6 +15,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginOnInitEvent>((event, emit) {
       LoginOnInitEventHandler(event, emit);
     });
+
+    on<LoginOnRegisterTextPressEvent>((event, emit) async {
+      await LoginOnRegisterTextPressEventHandler(event, emit);
+    });
   }
 
   FutureOr<void> LoginOnSigninClickButtonEventHandler(event, emit) async {
@@ -36,5 +40,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   FutureOr<void> LoginOnInitEventHandler(
       LoginOnInitEvent event, Emitter<LoginState> emit) async {
     //Currently do nothing
+  }
+
+  FutureOr<void> LoginOnRegisterTextPressEventHandler(event, emit) async {
+    print("[Login Screen] Change to Register Screen");
+    emit(LoginMoveToRegisterScreen());
+    emit(LoginInitial());
   }
 }

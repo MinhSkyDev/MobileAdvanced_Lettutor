@@ -12,3 +12,5 @@ class LoginOnForgotPasswordClickButton extends LoginEvent {}
 class LoginOnUsernameTextWrite extends LoginEvent {}
 
 class LoginOnPasswordTextWrite extends LoginEvent {}
+
+class LoginOnRegisterTextPressEvent extends LoginEvent {}

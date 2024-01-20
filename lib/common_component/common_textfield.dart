@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lettutor/common_component/common_header_text.dart';
 
 class CommonTextField extends StatelessWidget {
   final controller;
@@ -26,11 +27,7 @@ class CommonTextField extends StatelessWidget {
                     borderRadius: BorderRadius.circular(40.0),
                   ),
                   filled: true,
-                  hintStyle: TextStyle(
-                      color: Colors.grey[800],
-                      height: 1,
-                      fontSize: 10,
-                      fontFamily: 'Montserrat'),
+                  hintStyle: TextStyleCommon(),
                   hintText: hintText,
                   fillColor: Colors.white70),
             )));
