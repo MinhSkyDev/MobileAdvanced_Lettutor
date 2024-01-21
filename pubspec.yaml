@@ -39,6 +39,7 @@ dependencies:
   google_fonts: ^6.1.0
   social_login_buttons: ^1.0.7
   horizontal_list: ^0.0.7
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:

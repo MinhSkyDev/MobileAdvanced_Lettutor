@@ -4,6 +4,7 @@ import "package:lettutor/common_component/common_header_text.dart";
 import "package:lettutor/common_component/login_button.dart";
 import "package:lettutor/common_component/login_textfield.dart";
 import "package:lettutor/dashboard/ui/dashboard.dart";
+import "package:lettutor/dto/auth_dto.dart";
 import "package:lettutor/login/bloc/bloc/login_bloc.dart";
 import "package:lettutor/register/ui/register.dart";
 import "package:social_login_buttons/social_login_buttons.dart";
@@ -54,7 +55,16 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void onSigninButton() {
-    loginBloc.add(LoginOnSigninClickButtonEvent());
+    String username = usernameInput.text;
+    String password = passwordInput.text;
+    loginBloc.add(
+      LoginOnSigninClickButtonEvent(
+        currentLoginRequest: LoginRequest(
+          email: username,
+          password: password,
+        ),
+      ),
+    );
   }
 
   void onRegisterTextButtonPress() {

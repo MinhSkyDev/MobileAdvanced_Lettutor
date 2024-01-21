@@ -5,7 +5,10 @@ abstract class LoginEvent {}
 
 class LoginOnInitEvent extends LoginEvent {}
 
-class LoginOnSigninClickButtonEvent extends LoginEvent {}
+class LoginOnSigninClickButtonEvent extends LoginEvent {
+  LoginRequest currentLoginRequest;
+  LoginOnSigninClickButtonEvent({required this.currentLoginRequest});
+}
 
 class LoginOnForgotPasswordClickButton extends LoginEvent {}
 
