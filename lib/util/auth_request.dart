@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:lettutor/dto/auth_dto.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-Future<void> registerUser(RegisterRequest request) async {
+Future<int> registerUser(RegisterRequest request) async {
   const String apiUrl = 'https://sandbox.api.lettutor.com/auth/register';
 
   try {
@@ -19,20 +20,20 @@ Future<void> registerUser(RegisterRequest request) async {
       // Request was successful
       final jsonResponse = json.decode(response.body);
       final registerResponse = RegisterResponse.fromJson(jsonResponse);
-      print('Registration successful');
-      print('User ID: ${registerResponse.user.id}');
-      print('Access Token: ${registerResponse.tokens['access']['token']}');
     } else {
       // Request failed
       print('Failed to register. Status code: ${response.statusCode}');
       print('Response body: ${response.body}');
     }
+
+    return response.statusCode;
   } catch (e) {
     print('Error during registration: $e');
+    return -1;
   }
 }
 
-Future<void> loginUser(LoginRequest request) async {
+Future<int> loginUser(LoginRequest request) async {
   const String apiUrl = 'https://sandbox.api.lettutor.com/auth/login';
 
   try {
@@ -47,16 +48,18 @@ Future<void> loginUser(LoginRequest request) async {
     if (response.statusCode == 200) {
       // Request was successful
       final jsonResponse = json.decode(response.body);
-      final loginResponse = LoginResponse.fromJson(jsonResponse);
-      // print('Login successful');
-      // print('User ID: ${loginResponse.user.id}');
-      // print('Access Token: ${loginResponse.tokens['access']['token']}');
+      //final loginResponse = LoginResponse.fromJson(jsonResponse);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('lettutorUser', (response.body));
     } else {
       // Request failed
       print('Failed to login. Status code: ${response.statusCode}');
       print('Response body: ${response.body}');
     }
+
+    return response.statusCode;
   } catch (e) {
     print('Error during login: $e');
+    return -1;
   }
 }

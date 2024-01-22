@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/model/schedule..dart';
 import 'package:lettutor/model/tutor.dart';
 import 'package:lettutor/schedule/ui/schedule_card.dart';
@@ -34,13 +34,8 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
           const SizedBox(height: 15),
           Row(
             children: [
-              Text(
+              TextHeader1(
                 "Schedule",
-                style: GoogleFonts.montserrat(
-                  fontSize: 25,
-                  textStyle: const TextStyle(color: Colors.black87),
-                  fontWeight: FontWeight.w800,
-                ),
               ),
             ],
           ),
@@ -49,21 +44,11 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                TextHeader2(
                   messageSchedule_1,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 10,
-                    textStyle: const TextStyle(color: Colors.black87),
-                    fontWeight: FontWeight.w500,
-                  ),
                 ),
-                Text(
+                TextCommon(
                   messageSchedule_2,
-                  style: GoogleFonts.montserrat(
-                    fontSize: 10,
-                    textStyle: const TextStyle(color: Colors.black87),
-                    fontWeight: FontWeight.w500,
-                  ),
                 ),
                 Expanded(
                   child: ListView(

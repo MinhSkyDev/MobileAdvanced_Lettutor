@@ -37,7 +37,7 @@ class _FindTutorState extends State<FindTutor> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(15.0),
+      padding: const EdgeInsets.all(10.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -51,7 +51,7 @@ class _FindTutorState extends State<FindTutor> {
             ],
           ),
           const SizedBox(
-            height: 10,
+            height: 5,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -89,7 +89,7 @@ class _FindTutorState extends State<FindTutor> {
           ),
           SafeArea(
             child: HorizontalListView(
-              height: 40,
+              height: 35,
               width: double.maxFinite,
               list: [
                 RoundedButtonSmallBold("Select a day", () {}),
@@ -103,57 +103,54 @@ class _FindTutorState extends State<FindTutor> {
                   .toList(),
             ),
           ),
-          Row(
-            children: [
-              RoundedButtonBold("Reset Filter", () {}),
-            ],
-          ),
 
           //RECOMENDED TUTORS
-          const SizedBox(height: 10),
-          const Row(
+          const SizedBox(height: 5),
+          Row(
             children: [
-              Text(
+              TextCommonBold(
                 "Recommended Tutors",
-                style: TextStyle(fontSize: 25),
               ),
             ],
           ),
-          Expanded(
+          Flexible(
+              flex: 5,
               child: ListView(
-            children: [
-              TutorRecommendItem(
-                currentTutor: Tutor(
-                    avatarURL:
-                        "https://media.post.rvohealth.io/wp-content/uploads/2020/08/732x549_Are_Random_Erections_Normal-1-732x549.jpg",
-                    name: "ABC",
-                    nationality: "Vietnam",
-                    rating: 5,
-                    skills: ["C++", "English"],
-                    description: "Im super good"),
-              ),
-              TutorRecommendItem(
-                currentTutor: Tutor(
-                    avatarURL:
-                        "https://media.post.rvohealth.io/wp-content/uploads/2020/08/732x549_Are_Random_Erections_Normal-1-732x549.jpg",
-                    name: "ABC",
-                    nationality: "Vietnam",
-                    rating: 5,
-                    skills: ["C++", "English"],
-                    description: "Im super good"),
-              ),
-              TutorRecommendItem(
-                currentTutor: Tutor(
-                    avatarURL:
-                        "https://media.post.rvohealth.io/wp-content/uploads/2020/08/732x549_Are_Random_Erections_Normal-1-732x549.jpg",
-                    name: "ABC",
-                    nationality: "Vietnam",
-                    rating: 5,
-                    skills: ["C++", "English"],
-                    description: "Im super good"),
-              )
-            ],
-          ))
+                physics: const PageScrollPhysics(),
+                shrinkWrap: true,
+                children: [
+                  TutorRecommendItem(
+                    currentTutor: Tutor(
+                        avatarURL:
+                            "https://media.post.rvohealth.io/wp-content/uploads/2020/08/732x549_Are_Random_Erections_Normal-1-732x549.jpg",
+                        name: "ABC",
+                        nationality: "Vietnam",
+                        rating: 5,
+                        skills: ["C++", "English"],
+                        description: "Im super good"),
+                  ),
+                  TutorRecommendItem(
+                    currentTutor: Tutor(
+                        avatarURL:
+                            "https://media.post.rvohealth.io/wp-content/uploads/2020/08/732x549_Are_Random_Erections_Normal-1-732x549.jpg",
+                        name: "ABC",
+                        nationality: "Vietnam",
+                        rating: 5,
+                        skills: ["C++", "English"],
+                        description: "Im super good"),
+                  ),
+                  TutorRecommendItem(
+                    currentTutor: Tutor(
+                        avatarURL:
+                            "https://media.post.rvohealth.io/wp-content/uploads/2020/08/732x549_Are_Random_Erections_Normal-1-732x549.jpg",
+                        name: "ABC",
+                        nationality: "Vietnam",
+                        rating: 5,
+                        skills: ["C++", "English"],
+                        description: "Im super good"),
+                  )
+                ],
+              ))
         ],
       ),
     );

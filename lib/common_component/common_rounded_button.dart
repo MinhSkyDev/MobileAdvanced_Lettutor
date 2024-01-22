@@ -12,6 +12,7 @@ class RoundedButtonBold extends StatelessWidget {
     final Size size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width * 0.4,
+      height: size.height * 0.04,
       child: ElevatedButton(
         onPressed: press,
         style: ButtonStyle(
@@ -51,8 +52,8 @@ class RoundedButtonSmallBold extends StatelessWidget {
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return SizedBox(
-      width: size.width * 0.25,
-      height: size.height * 0.1,
+      width: size.width * 0.15,
+      height: size.height * 0.05,
       child: ElevatedButton(
         onPressed: press,
         style: ButtonStyle(

@@ -15,6 +15,7 @@ class CommonTextField extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return SizedBox(
         width: size.width * 0.4,
+        height: size.height * 0.07,
         child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
             child: TextField(
@@ -27,7 +28,7 @@ class CommonTextField extends StatelessWidget {
                     borderRadius: BorderRadius.circular(40.0),
                   ),
                   filled: true,
-                  hintStyle: TextStyleCommon(),
+                  hintStyle: TextStyleCommonHint(),
                   hintText: hintText,
                   fillColor: Colors.white70),
             )));

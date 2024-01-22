@@ -28,6 +28,15 @@ Widget TextHeader3(String text) {
       ));
 }
 
+Widget TextSideBar(String text) {
+  return Text(text,
+      style: GoogleFonts.montserrat(
+        fontSize: 28,
+        textStyle: const TextStyle(color: Colors.white),
+        fontWeight: FontWeight.w800,
+      ));
+}
+
 Widget TextForButton(String text) {
   return Text(text,
       style: GoogleFonts.montserrat(
@@ -55,9 +64,26 @@ Widget TextCommonBold(String text) {
       ));
 }
 
+Widget TextCommonBoldWhite(String text) {
+  return Text(text,
+      style: GoogleFonts.montserrat(
+        fontSize: 13,
+        textStyle: const TextStyle(color: Colors.white),
+        fontWeight: FontWeight.w800,
+      ));
+}
+
 TextStyle TextStyleCommon() {
   return GoogleFonts.montserrat(
     fontSize: 13,
+    textStyle: const TextStyle(color: Colors.black),
+    fontWeight: FontWeight.w500,
+  );
+}
+
+TextStyle TextStyleCommonHint() {
+  return GoogleFonts.montserrat(
+    fontSize: 11,
     textStyle: const TextStyle(color: Colors.black),
     fontWeight: FontWeight.w500,
   );

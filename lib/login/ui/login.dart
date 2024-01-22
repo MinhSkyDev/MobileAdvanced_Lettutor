@@ -7,6 +7,8 @@ import "package:lettutor/dashboard/ui/dashboard.dart";
 import "package:lettutor/dto/auth_dto.dart";
 import "package:lettutor/login/bloc/bloc/login_bloc.dart";
 import "package:lettutor/register/ui/register.dart";
+import "package:quickalert/models/quickalert_type.dart";
+import "package:quickalert/widgets/quickalert_dialog.dart";
 import "package:social_login_buttons/social_login_buttons.dart";
 
 class LoginScreen extends StatefulWidget {
@@ -29,27 +31,38 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-      child: BlocConsumer<LoginBloc, LoginState>(
-        bloc: loginBloc,
-        listener: (context, state) {
-          if (state is LoginSiginLoadedSucces) {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const DashboardScreen()));
-          } else if (state is LoginMoveToRegisterScreen) {
-            moveToRegisterScreen();
-          }
-        },
-        builder: (context, state) {
-          switch (state.runtimeType) {
-            case LoginSigninLoading:
-              return const Center(child: CircularProgressIndicator());
-            default:
-              return LoginInitialView();
-          }
-        },
+        body: Center(
+      child: SingleChildScrollView(
+        child: SafeArea(
+          child: BlocConsumer<LoginBloc, LoginState>(
+            bloc: loginBloc,
+            listener: (context, state) {
+              if (state is LoginSiginLoadedSucces) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DashboardScreen()));
+              } else if (state is LoginMoveToRegisterScreen) {
+                moveToRegisterScreen();
+              } else if (state is LoginSigninLoadedFailed) {
+                QuickAlert.show(
+                  context: context,
+                  type: QuickAlertType.error,
+                  title: 'Oops...',
+                  text: 'Sign in failed...',
+                );
+              }
+            },
+            builder: (context, state) {
+              switch (state.runtimeType) {
+                case LoginSigninLoading:
+                  return const Center(child: CircularProgressIndicator());
+                default:
+                  return LoginInitialView();
+              }
+            },
+          ),
+        ),
       ),
     ));
   }
