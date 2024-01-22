@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/courses/ui/course_card.dart';
 import 'package:lettutor/model/course.dart';
 
@@ -26,12 +27,11 @@ class _CoursesScreenState extends State<CoursesScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Row(
+          Row(
             children: [
-              Text(
+              TextHeader1(
                 "Discover Courses",
-                style: TextStyle(fontSize: 25),
-              ),
+              )
             ],
           ),
           Expanded(

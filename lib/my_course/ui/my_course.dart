@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/courses/ui/course_card.dart';
 import 'package:lettutor/model/course.dart';
 
@@ -34,17 +33,15 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
               children: [
                 Row(
                   children: [
-                    const Text(
-                      "Your Current Courses",
-                      style: TextStyle(fontSize: 25),
+                    TextHeader1(
+                      "Your Courses",
                     ),
                   ],
                 ),
                 Row(
                   children: [
-                    Text(
-                      "Your courses will be displayed here",
-                      style: TextStyle(fontSize: 10),
+                    TextHeader2(
+                      "Your booked courses will be displayed here",
                     )
                   ],
                 ),
@@ -58,6 +55,5 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
         ],
       ),
     );
-    ;
   }
 }

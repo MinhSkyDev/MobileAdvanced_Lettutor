@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/history/ui/history_card.dart';
 import 'package:lettutor/model/history.dart';
 
@@ -38,23 +39,16 @@ class _HistoryScreenState extends State<HistoryScreen> {
           const SizedBox(height: 15),
           Row(
             children: [
-              Text(
+              TextHeader1(
                 "History",
-                style: GoogleFonts.montserrat(
-                  fontSize: 25,
-                  textStyle: const TextStyle(color: Colors.black87),
-                  fontWeight: FontWeight.w800,
-                ),
               ),
             ],
           ),
-          Text(
+          TextHeader2(
             messageSchedule_1,
-            style: normalTextStyle(),
           ),
-          Text(
+          TextCommon(
             messageSchedule_2,
-            style: normalTextStyle(),
           ),
           Expanded(
             child: ListView(
