@@ -22,7 +22,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     //Maybe this will be add some initial config of the app
     print('HomeLoading start');
     emit(HomeLoading());
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
     print('HomeLoaded start');
     emit(HomeLoaded());
   }

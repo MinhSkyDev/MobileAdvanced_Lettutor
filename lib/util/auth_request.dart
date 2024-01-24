@@ -53,13 +53,10 @@ Future<int> loginUser(LoginRequest request) async {
       await prefs.setString('lettutorUser', (response.body));
     } else {
       // Request failed
-      print('Failed to login. Status code: ${response.statusCode}');
-      print('Response body: ${response.body}');
     }
 
     return response.statusCode;
   } catch (e) {
-    print('Error during login: $e');
     return -1;
   }
 }

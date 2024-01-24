@@ -4,3 +4,7 @@ part of 'my_course_bloc.dart';
 abstract class MyCourseState {}
 
 class MyCourseInitial extends MyCourseState {}
+
+class MyCourseLoadingCourseState extends MyCourseState {}
+
+class MyCourseLoadedCourseState extends MyCourseState {}

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/courses/ui/course_card.dart';
 import 'package:lettutor/model/course.dart';
+import 'package:lettutor/my_course/bloc/bloc/my_course_bloc.dart';
 
 class MyCourseScreen extends StatefulWidget {
   const MyCourseScreen({super.key});
@@ -21,6 +23,22 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return BlocConsumer(
+      bloc: BlocProvider.of<MyCourseBloc>(context),
+      listener: (context, state) {},
+      builder: (context, state) {
+        if (state is MyCourseLoadedCourseState) {
+          return getMyCourseMainScreen();
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  Widget getMyCourseMainScreen() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(

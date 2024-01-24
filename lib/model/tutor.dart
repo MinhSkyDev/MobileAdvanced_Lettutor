@@ -2,11 +2,11 @@ import 'dart:core';
 
 class Tutor {
   String name = "";
-  String nationality;
-  String avatarURL;
-  int rating;
-  List<String> skills;
-  String description;
+  String nationality = "";
+  String avatarURL = "https://i.pravatar.cc/300";
+  double rating;
+  String skills = "";
+  String description = "";
 
   Tutor(
       {required this.name,

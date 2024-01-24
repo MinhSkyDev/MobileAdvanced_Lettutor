@@ -22,7 +22,7 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       name: "ABC",
       nationality: "Vietnam",
       rating: 5,
-      skills: ["C++", "English"],
+      skills: "C++, English",
       description: "Im super good");
 
   @override

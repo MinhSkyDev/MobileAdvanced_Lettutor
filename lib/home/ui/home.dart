@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lettutor/home/bloc/bloc/home_bloc.dart';
 import 'package:lettutor/login/ui/login.dart';
@@ -28,26 +26,26 @@ class _HommeScreenState extends State<HomeScreen> {
         listener: (context, state) {
           if (state is HomeLoaded) {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => LoginScreen()));
+                MaterialPageRoute(builder: (context) => const LoginScreen()));
           }
         },
         builder: (context, state) {
           switch (state.runtimeType) {
             case HomeLoading:
               {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
             case HomeInitial:
               {
-                return Center(
+                return const Center(
                   child: Text("Home page"),
                 );
               }
             default:
               {
-                return SizedBox();
+                return const SizedBox();
               }
           }
         },

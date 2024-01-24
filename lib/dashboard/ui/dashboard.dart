@@ -1,12 +1,17 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lettutor/common_component/common_header_text.dart';
+import 'package:lettutor/courses/bloc/bloc/course_bloc.dart';
 import 'package:lettutor/courses/ui/courses.dart';
 import 'package:lettutor/dto/auth_dto.dart';
+import 'package:lettutor/find_tutor/bloc/bloc/find_tutor_bloc.dart';
 import 'package:lettutor/find_tutor/ui/find_tutor.dart';
+import 'package:lettutor/history/bloc/bloc/history_bloc.dart';
 import 'package:lettutor/history/ui/history_screen.dart';
+import 'package:lettutor/my_course/bloc/bloc/my_course_bloc.dart';
 import 'package:lettutor/schedule/ui/Schedule.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,7 +43,6 @@ class _DashboardScreenState extends State<DashboardScreen>
       LoginResponse userInfo = LoginResponse.fromJson(userinfoResponse);
       currentUserInfo = userInfo;
       setState(() {
-        print("[dash board] Im here get full data");
         isDataLoaded = true;
       });
     }
@@ -62,7 +66,19 @@ class _DashboardScreenState extends State<DashboardScreen>
               userLoginInfo: currentUserInfo,
             ),
             body: SafeArea(
-              child: DashboardContent(currentIndex: _currentIndex),
+              child: MultiBlocProvider(providers: [
+                BlocProvider<FindTutorBloc>(
+                  create: (BuildContext context) => FindTutorBloc(),
+                ),
+                BlocProvider<MyCourseBloc>(
+                  create: (BuildContext context) => MyCourseBloc(),
+                ),
+                BlocProvider<CourseBloc>(
+                  create: (BuildContext context) => CourseBloc(),
+                ),
+                BlocProvider<HistoryBloc>(
+                    create: (BuildContext context) => HistoryBloc()),
+              ], child: DashboardContent(currentIndex: _currentIndex)),
             ),
           )
         : const Scaffold(

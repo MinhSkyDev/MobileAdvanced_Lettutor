@@ -48,6 +48,7 @@ Widget TextForButton(String text) {
 
 Widget TextCommon(String text) {
   return Text(text,
+      overflow: TextOverflow.ellipsis,
       style: GoogleFonts.montserrat(
         fontSize: 13,
         textStyle: const TextStyle(color: Colors.black),

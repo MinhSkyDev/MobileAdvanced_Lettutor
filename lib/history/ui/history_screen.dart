@@ -25,7 +25,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
       name: "ABC",
       nationality: "Vietnam",
       rating: 5,
-      skills: ["C++", "English"],
+      skills: "C++, English",
       description: "Im super good");
 
   @override

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:lettutor/model/history.dart';
 
 class HistoryCard extends StatelessWidget {
@@ -12,7 +10,7 @@ class HistoryCard extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: Container(
+        child: SizedBox(
           width: size.width * 0.8,
           height: size.height * 0.2,
           child: Padding(
@@ -39,7 +37,7 @@ class HistoryCard extends StatelessWidget {
                           children: [
                             Text(currentHistory.currentTutor.name),
                             Text(currentHistory.currentTutor.nationality),
-                            Text("Direct Message"),
+                            const Text("Direct Message"),
                           ],
                         ),
                         //Time Schedule
@@ -52,7 +50,7 @@ class HistoryCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Text("Request for lesson"),
+                  const Text("Request for lesson"),
                   Text(currentHistory.request),
                 ],
               ),
@@ -77,8 +75,7 @@ class HistoryCard extends StatelessWidget {
     int weekDay = currentDateTime.weekday - 1;
     int month = currentDateTime.month;
     int day = currentDateTime.day;
-    result =
-        weekdayMapping[weekDay] + "," + month.toString() + "/" + day.toString();
+    result = "${weekdayMapping[weekDay]},$month/$day";
 
     return result;
   }

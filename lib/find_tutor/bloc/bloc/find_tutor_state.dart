@@ -4,3 +4,7 @@ part of 'find_tutor_bloc.dart';
 abstract class FindTutorState {}
 
 class FindTutorInitial extends FindTutorState {}
+
+class FindTutorLoadingState extends FindTutorState {}
+
+class FindTutorLoadedState extends FindTutorState {}

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:lettutor/dto/tutor_dto.dart';
 
-Future<void> getTutors(TutorRequest request) async {
+Future<dynamic> getTutors(TutorRequest request) async {
   const String apiUrl = 'https://sandbox.api.lettutor.com/tutor/more';
   final Map<String, dynamic> queryParameters = request.toQueryParameters();
 
@@ -19,13 +19,12 @@ Future<void> getTutors(TutorRequest request) async {
       // Request was successful
 
       final jsonResponse = json.decode(response.body);
-      print(jsonResponse);
+      return jsonResponse;
     } else {
-      // Request failed
-      print('Failed to get tutors. Status code: ${response.statusCode}');
-      print('Response body: ${response.body}');
+      return null;
     }
   } catch (e) {
     print('Error while getting tutors: $e');
+    return null;
   }
 }
