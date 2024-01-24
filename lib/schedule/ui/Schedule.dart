@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/model/schedule..dart';
 import 'package:lettutor/model/tutor.dart';
+import 'package:lettutor/schedule/bloc/bloc/schedule_bloc.dart';
 import 'package:lettutor/schedule/ui/schedule_card.dart';
 
 class ScheduleScreen extends StatefulWidget {
@@ -26,7 +28,30 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
       description: "Im super good");
 
   @override
+  void initState() {
+    BlocProvider.of<ScheduleBloc>(context).add(ScheduleOnInitEvent());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    return BlocConsumer(
+      bloc: BlocProvider.of<ScheduleBloc>(context),
+      listener: (context, state) {},
+      builder: (context, state) {
+        if (state is ScheduleLoadedState) {
+          return getScheduleMainScreen();
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
+    );
+  }
+
+  Widget getScheduleMainScreen() {
+    ScheduleBloc currentBloc = BlocProvider.of<ScheduleBloc>(context);
+    dynamic currentOwnSchedules = currentBloc.currentSchedules;
+
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(

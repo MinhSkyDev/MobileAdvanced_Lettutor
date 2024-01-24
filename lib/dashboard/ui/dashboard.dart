@@ -12,6 +12,7 @@ import 'package:lettutor/find_tutor/ui/find_tutor.dart';
 import 'package:lettutor/history/bloc/bloc/history_bloc.dart';
 import 'package:lettutor/history/ui/history_screen.dart';
 import 'package:lettutor/my_course/bloc/bloc/my_course_bloc.dart';
+import 'package:lettutor/schedule/bloc/bloc/schedule_bloc.dart';
 import 'package:lettutor/schedule/ui/Schedule.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -69,6 +70,9 @@ class _DashboardScreenState extends State<DashboardScreen>
               child: MultiBlocProvider(providers: [
                 BlocProvider<FindTutorBloc>(
                   create: (BuildContext context) => FindTutorBloc(),
+                ),
+                BlocProvider<ScheduleBloc>(
+                  create: (BuildContext context) => ScheduleBloc(),
                 ),
                 BlocProvider<MyCourseBloc>(
                   create: (BuildContext context) => MyCourseBloc(),
