@@ -98,6 +98,17 @@ Widget TextCommonGreyLight(String text) {
       ));
 }
 
+Widget TextCommonGreyLightSmall(String text) {
+  return Text(text,
+      softWrap: true,
+      textAlign: TextAlign.start,
+      style: GoogleFonts.montserrat(
+        fontSize: 11,
+        textStyle: const TextStyle(color: Colors.grey),
+        fontWeight: FontWeight.w700,
+      ));
+}
+
 Widget TextCommonBold(String text) {
   return Text(text,
       style: GoogleFonts.montserrat(

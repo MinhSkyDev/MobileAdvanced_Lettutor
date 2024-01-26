@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:lettutor/dto/auth_dto.dart';
 import 'package:lettutor/dto/tutor_dto.dart';
 import 'package:lettutor/util/common_util.dart';
+import 'package:lettutor/util/schedule_request.dart';
 import 'package:lettutor/util/tutor_request.dart';
 import 'package:meta/meta.dart';
 
@@ -12,17 +13,43 @@ part 'find_tutor_state.dart';
 
 class FindTutorBloc extends Bloc<FindTutorEvent, FindTutorState> {
   dynamic currentTutors;
-
+  dynamic selectedTutorDetail;
+  dynamic selectedTutor;
+  dynamic selectedTutorSchedule;
+  late String currentUserId;
   FindTutorBloc() : super(FindTutorInitial()) {
     on<FindTutorInitEvent>((event, emit) async {
       await FindTutorInitEventHandler(event, emit);
     });
 
-    on<FindTutorOnClickEvent>((event, emit) async {});
+    on<FindTutorOnClickEvent>((event, emit) async {
+      await FindTutorOnClickEventHandler(event, emit);
+    });
 
     on<FindTutorSwitchPageEvent>((event, emit) async {
       await FindTutorSwitchPageEventHandler(event, emit);
     });
+  }
+
+  FutureOr<void> FindTutorOnClickEventHandler(event, emit) async {
+    String currentAccessToken = await getAccessToken();
+    FindTutorOnClickEvent currentEvent = event as FindTutorOnClickEvent;
+    dynamic newTutorDetail =
+        await getTutorDetail(currentEvent.userId, currentAccessToken);
+
+    if (newTutorDetail != null) {
+      selectedTutorDetail = newTutorDetail;
+      selectedTutor =
+          currentTutors["tutors"]['rows'][currentEvent.currentIndex];
+      selectedTutorSchedule =
+          await getTutorSchedule(currentAccessToken, currentEvent.userId);
+      selectedTutorSchedule = selectedTutorSchedule['scheduleOfTutor'];
+      emit(FindTutorViewDetailSuccessState());
+      emit(FindTutorLoadedState);
+    } else {
+      emit(FindTutorViewDetailFailedState());
+      emit(FindTutorLoadedState);
+    }
   }
 
   FutureOr<void> FindTutorSwitchPageEventHandler(event, emit) async {
@@ -53,6 +80,7 @@ class FindTutorBloc extends Bloc<FindTutorEvent, FindTutorState> {
     String currentAccessToken = currentUser.tokens['access']['token'];
     currentTutors = await getTutors(
         TutorRequest(perPage: 9, numPage: 1, accessToken: currentAccessToken));
+    currentUserId = await getUserId();
     emit(FindTutorLoadedState());
   }
 }

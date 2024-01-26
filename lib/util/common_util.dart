@@ -32,3 +32,14 @@ Future<String> getAccessToken() async {
   String currentAccessToken = currentUser.tokens['access']['token'];
   return currentAccessToken;
 }
+
+Future<String> getUserId() async {
+  LoginResponse currentUser = await getUserData();
+  String currentId = currentUser.user.id;
+  return currentId;
+}
+
+String getRandomAvatarUrl() {
+  int random = getRandomNumber(1, 1000);
+  return "https://api.minimalavatars.com/avatar/$random/png";
+}

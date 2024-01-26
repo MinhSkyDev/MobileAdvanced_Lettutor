@@ -129,7 +129,7 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
                       TextCommon("Why take this course?"),
                       TextCommonGreyLight(courseDataDTO.reason as String),
                       TextCommon("What will you able to do?"),
-                      TextCommonGreyLight(courseDataDTO.purpose as String)
+                      TextCommonGreyLight(courseDataDTO.purpose as String),
                     ]),
               )
             ],

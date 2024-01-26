@@ -10,3 +10,7 @@ class FindTutorLoadingState extends FindTutorState {}
 class FindTutorLoadedState extends FindTutorState {}
 
 class FindTutorSwitchPageFailedState extends FindTutorState {}
+
+class FindTutorViewDetailSuccessState extends FindTutorState {}
+
+class FindTutorViewDetailFailedState extends FindTutorState {}

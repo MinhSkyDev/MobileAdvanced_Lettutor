@@ -5,7 +5,9 @@ import 'package:lettutor/util/common_util.dart';
 
 class TutorRecommendItem extends StatelessWidget {
   Tutor currentTutor;
-  TutorRecommendItem({super.key, required this.currentTutor});
+  VoidCallback onClick;
+  TutorRecommendItem(
+      {super.key, required this.currentTutor, required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -17,47 +19,51 @@ class TutorRecommendItem extends StatelessWidget {
       currentTutor.avatarURL =
           "https://api.minimalavatars.com/avatar/$random/png";
     }
-    return Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        child: SizedBox(
-          width: size.width * 0.8,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 70,
-                      backgroundImage:
-                          Image.network(currentTutor.avatarURL).image,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextCommonBold("Name"),
-                          TextCommon(currentTutor.name),
-                          TextCommonBold("Nationality"),
-                          TextCommon(currentTutor.nationality),
-                          TextCommon("Skill: ${currentTutor.skills}"),
-                        ],
+    return GestureDetector(
+      onTap: onClick,
+      child: Card(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          child: SizedBox(
+            width: size.width * 0.8,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 70,
+                        backgroundImage:
+                            Image.network(currentTutor.avatarURL).image,
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                TextCommonBold("Description:"),
-                TextCommonDescription(currentTutor.description)
-              ],
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextCommonBold("Name"),
+                            TextCommon(currentTutor.name),
+                            TextCommonBold("Nationality"),
+                            TextCommon(currentTutor.nationality),
+                            TextCommon("Skill: ${currentTutor.skills}"),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  TextCommonBold("Description:"),
+                  TextCommonDescription(currentTutor.description)
+                ],
+              ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 }

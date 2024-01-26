@@ -34,7 +34,6 @@ class ScheduleCard extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: SizedBox(
           width: size.width * 0.8,
-          height: size.height * 0.2,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Padding(
@@ -45,6 +44,7 @@ class ScheduleCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 0, 15, 0),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // AVATAR
@@ -61,10 +61,14 @@ class ScheduleCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            displayText(currentSchedule.currentTutor.name),
                             displayText(
-                                currentSchedule.currentTutor.nationality),
+                                "Name: ${currentSchedule.currentTutor.name}"),
+                            displayText(
+                                "Nationality: ${currentSchedule.currentTutor.nationality}"),
                           ],
+                        ),
+                        const SizedBox(
+                          width: 50,
                         ),
                         //Time Schedule
                         Row(

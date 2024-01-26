@@ -28,3 +28,28 @@ Future<dynamic> getTutors(TutorRequest request) async {
     return null;
   }
 }
+
+Future<dynamic> getTutorDetail(String tutorId, String accessToken) async {
+  String apiUrl = 'https://sandbox.api.lettutor.com/tutor/$tutorId';
+
+  try {
+    final Uri uri = Uri.parse(apiUrl);
+    final response = await http.get(
+      uri,
+      headers: {
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+    if (response.statusCode == 200) {
+      // Request was successful
+
+      final jsonResponse = json.decode(response.body);
+      return jsonResponse;
+    } else {
+      return null;
+    }
+  } catch (e) {
+    print('Error while getting tutors: $e');
+    return null;
+  }
+}

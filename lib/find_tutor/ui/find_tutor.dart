@@ -6,6 +6,7 @@ import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/common_component/common_rounded_button.dart';
 import 'package:lettutor/common_component/common_textfield.dart';
 import 'package:lettutor/find_tutor/bloc/bloc/find_tutor_bloc.dart';
+import 'package:lettutor/find_tutor/ui/tutor_detail.dart';
 import 'package:lettutor/find_tutor/ui/tutor_recommend_card.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
@@ -80,6 +81,19 @@ class _FindTutorState extends State<FindTutor> {
             title: 'Oops...',
             text: 'Switch Page Failed!',
           );
+        } else if (state is FindTutorViewDetailFailedState) {
+          QuickAlert.show(
+            context: context,
+            type: QuickAlertType.error,
+            title: 'Oops...',
+            text: 'View Tutor Detail Unsuccessful',
+          );
+        } else if (state is FindTutorViewDetailSuccessState) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (_) => BlocProvider.value(
+                    value: BlocProvider.of<FindTutorBloc>(context),
+                    child: const TutorDetailScreen(),
+                  )));
         }
       },
       builder: (context, state) {
@@ -196,8 +210,12 @@ class _FindTutorState extends State<FindTutor> {
                 padding: const EdgeInsets.all(8),
                 itemCount: currentTutors.length,
                 itemBuilder: (BuildContext context, int index) {
-                  print(currentTutors[index]);
                   return TutorRecommendItem(
+                    onClick: () {
+                      currentFindTutorBloc.add(FindTutorOnClickEvent(
+                          currentIndex: index,
+                          userId: currentTutors[index]['userId'] as String));
+                    },
                     currentTutor: Tutor(
                         avatarURL: currentTutors[index]['avatar']?.toString() ??
                             'https://www.google.com/url?sa=i&url=https%3A%2F%2Fcommunity.atlassian.com%2Ft5%2FJira-Software-questions%2FUnassigned-avatar-missing-in-Jira-Server%2Fqaq-p%2F794354&psig=AOvVaw2pTN_zKHA2FZrom_UGJnnj&ust=1706201463964000&source=images&cd=vfe&ved=0CBIQjRxqFwoTCLDZk6O-9oMDFQAAAAAdAAAAABAE',

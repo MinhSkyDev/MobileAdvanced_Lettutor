@@ -44,6 +44,9 @@ dependencies:
   quickalert: ^1.0.2
   flutter_rating_bar: ^4.0.1
   syncfusion_flutter_pdfviewer: ^24.1.47
+  video_player: ^2.8.2
+  appinio_video_player: ^1.2.2
+  syncfusion_flutter_calendar: ^24.1.47
 
 dev_dependencies:
   flutter_test:
