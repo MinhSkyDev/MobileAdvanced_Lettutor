@@ -61,15 +61,3 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(LoginInitial());
   }
 }
-
-// // await getTutors(TutorRequest(
-    // //     perPage: 9,
-    // //     numPage: 1,
-    // //     accessToken:
-    // //         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYjllN2RlYi0zMzgyLTQ4ZGItYjA3Yy05MGFjZjUyZjU0MWMiLCJpYXQiOjE3MDU4NTIzOTIsImV4cCI6MTcwNTkzODc5MiwidHlwZSI6ImFjY2VzcyJ9.HfklmteZKm6qlCQ0QxI2JYS6y5wWG4H2VtAJwjKFPF8"));
-
-    // await getCourses(CourseRequest(
-    //     page: 9,
-    //     size: 1,
-    //     accessToken:
-    //         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYjllN2RlYi0zMzgyLTQ4ZGItYjA3Yy05MGFjZjUyZjU0MWMiLCJpYXQiOjE3MDU4NTIzOTIsImV4cCI6MTcwNTkzODc5MiwidHlwZSI6ImFjY2VzcyJ9.HfklmteZKm6qlCQ0QxI2JYS6y5wWG4H2VtAJwjKFPF8"));

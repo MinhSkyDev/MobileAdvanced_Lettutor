@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/model/Tutor.dart';
+import 'package:lettutor/util/common_util.dart';
 
 class TutorRecommendItem extends StatelessWidget {
   Tutor currentTutor;
@@ -11,7 +12,10 @@ class TutorRecommendItem extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     if (currentTutor.avatarURL ==
         "https://www.alliancerehabmed.com/wp-content/uploads/icon-avatar-default.png") {
-      currentTutor.avatarURL = "https://i.pravatar.cc/300";
+      int random = getRandomNumber(1, 1000);
+
+      currentTutor.avatarURL =
+          "https://api.minimalavatars.com/avatar/$random/png";
     }
     return Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),

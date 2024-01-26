@@ -5,6 +5,7 @@ import 'package:lettutor/model/schedule..dart';
 import 'package:lettutor/model/tutor.dart';
 import 'package:lettutor/schedule/bloc/bloc/schedule_bloc.dart';
 import 'package:lettutor/schedule/ui/schedule_card.dart';
+import 'package:lettutor/util/common_util.dart';
 
 class ScheduleScreen extends StatefulWidget {
   const ScheduleScreen({super.key});
@@ -50,7 +51,9 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
 
   Widget getScheduleMainScreen() {
     ScheduleBloc currentBloc = BlocProvider.of<ScheduleBloc>(context);
-    dynamic currentOwnSchedules = currentBloc.currentSchedules;
+    dynamic currentownschedulesObject = currentBloc.currentSchedules;
+    List<dynamic> currentOwnSchedules =
+        currentownschedulesObject['data']['rows'];
 
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -76,17 +79,37 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                   messageSchedule_2,
                 ),
                 Expanded(
-                  child: ListView(
-                    children: [
-                      ScheduleCard(
-                        currentSchedule: Schedule(
-                            bookDay: DateTime.now(),
-                            currentTutor: fakeTutor,
-                            request: "There is no Request"),
-                      )
-                    ],
-                  ),
-                )
+                    child: ListView.builder(
+                        itemCount: currentOwnSchedules.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          dynamic currenttutorObject =
+                              currentOwnSchedules[index]['scheduleDetailInfo']
+                                  ['scheduleInfo']['tutorInfo'];
+
+                          return ScheduleCard(
+                              currentSchedule: Schedule(
+                            request: currentOwnSchedules[index]
+                                        ['studentRequest']
+                                    ?.toString() ??
+                                "",
+                            bookDay: convertUnixTimestampToDateTime(
+                                currentOwnSchedules[index]
+                                    ['createdAtTimeStamp']),
+                            currentTutor: Tutor(
+                              avatarURL:
+                                  currenttutorObject['avatar']?.toString() ??
+                                      "",
+                              name:
+                                  currenttutorObject['name']?.toString() ?? "",
+                              nationality:
+                                  currenttutorObject['country']?.toString() ??
+                                      "",
+                              rating: 5.0,
+                              skills: "ABC",
+                              description: "ABC",
+                            ),
+                          ));
+                        }))
               ],
             ),
           ),

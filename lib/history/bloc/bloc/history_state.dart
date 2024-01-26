@@ -4,3 +4,7 @@ part of 'history_bloc.dart';
 abstract class HistoryState {}
 
 class HistoryInitial extends HistoryState {}
+
+class HistoryLoadingState extends HistoryState {}
+
+class HistoryLoadedState extends HistoryState {}

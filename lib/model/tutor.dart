@@ -3,7 +3,7 @@ import 'dart:core';
 class Tutor {
   String name = "";
   String nationality = "";
-  String avatarURL = "https://i.pravatar.cc/300";
+  String avatarURL = "https://api.minimalavatars.com/avatar/random/png";
   double rating;
   String skills = "";
   String description = "";

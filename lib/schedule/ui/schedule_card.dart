@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/model/schedule..dart';
 
 class ScheduleCard extends StatelessWidget {
@@ -86,12 +86,9 @@ class ScheduleCard extends StatelessWidget {
         ));
   }
 
-  Text displayText(String content) {
-    return Text(content,
-        style: GoogleFonts.montserrat(
-          fontSize: 10,
-          textStyle: const TextStyle(color: Colors.black87),
-          fontWeight: FontWeight.w500,
-        ));
+  Widget displayText(String content) {
+    return TextCommonBold(
+      content,
+    );
   }
 }

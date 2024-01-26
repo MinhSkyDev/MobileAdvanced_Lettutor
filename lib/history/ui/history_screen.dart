@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lettutor/common_component/common_header_text.dart';
+import 'package:lettutor/history/bloc/bloc/history_bloc.dart';
 import 'package:lettutor/history/ui/history_card.dart';
 import 'package:lettutor/model/history.dart';
+import 'package:lettutor/util/common_util.dart';
 
 import '../../model/Tutor.dart';
 
@@ -29,7 +32,37 @@ class _HistoryScreenState extends State<HistoryScreen> {
       description: "Im super good");
 
   @override
+  void initState() {
+    BlocProvider.of<HistoryBloc>(context).add(HistoryOnInitEvent());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    HistoryBloc currentHistoryBloc = BlocProvider.of<HistoryBloc>(context);
+
+    return BlocConsumer(
+      bloc: currentHistoryBloc,
+      listener: (context, state) {},
+      builder: (context, state) {
+        if (state is HistoryLoadedState) {
+          return getHistoryMainScreen();
+        } else {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  Widget getHistoryMainScreen() {
+    HistoryBloc currentHistoryBloc = BlocProvider.of<HistoryBloc>(context);
+    dynamic currentownschedulesObject =
+        currentHistoryBloc.currentHistorySchedules;
+    List<dynamic> currentOwnSchedules =
+        currentownschedulesObject['data']['rows'];
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -51,16 +84,31 @@ class _HistoryScreenState extends State<HistoryScreen> {
             messageSchedule_2,
           ),
           Expanded(
-            child: ListView(
-              children: [
-                HistoryCard(
-                    currentHistory: History(
-                        bookDay: DateTime.now(),
-                        currentTutor: fakeTutor,
-                        request: "No Request"))
-              ],
-            ),
-          )
+              child: ListView.builder(
+                  itemCount: currentOwnSchedules.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    dynamic currenttutorObject = currentOwnSchedules[index]
+                        ['scheduleDetailInfo']['scheduleInfo']['tutorInfo'];
+
+                    return HistoryCard(
+                        currentHistory: History(
+                      request: currentOwnSchedules[index]['studentRequest']
+                              ?.toString() ??
+                          "",
+                      bookDay: convertUnixTimestampToDateTime(
+                          currentOwnSchedules[index]['createdAtTimeStamp']),
+                      currentTutor: Tutor(
+                        avatarURL:
+                            currenttutorObject['avatar']?.toString() ?? "",
+                        name: currenttutorObject['name']?.toString() ?? "",
+                        nationality:
+                            currenttutorObject['country']?.toString() ?? "",
+                        rating: 5.0,
+                        skills: "ABC",
+                        description: "ABC",
+                      ),
+                    ));
+                  })),
         ],
       ),
     );
