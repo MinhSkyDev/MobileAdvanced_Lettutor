@@ -54,8 +54,8 @@ class ScheduleCard extends StatelessWidget {
                                   currentSchedule.currentTutor.avatarURL)
                               .image,
                         ),
-                        SizedBox(
-                          width: size.width * 0.02,
+                        const SizedBox(
+                          width: 10,
                         ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -64,7 +64,6 @@ class ScheduleCard extends StatelessWidget {
                             displayText(currentSchedule.currentTutor.name),
                             displayText(
                                 currentSchedule.currentTutor.nationality),
-                            displayText("Direct Message"),
                           ],
                         ),
                         //Time Schedule

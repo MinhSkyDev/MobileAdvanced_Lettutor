@@ -20,7 +20,30 @@ class FindTutorBloc extends Bloc<FindTutorEvent, FindTutorState> {
 
     on<FindTutorOnClickEvent>((event, emit) async {});
 
-    on<FindTutorSwitchPageEvent>((event, emit) async {});
+    on<FindTutorSwitchPageEvent>((event, emit) async {
+      await FindTutorSwitchPageEventHandler(event, emit);
+    });
+  }
+
+  FutureOr<void> FindTutorSwitchPageEventHandler(event, emit) async {
+    //emit(FindTutorLoadingState());
+    print("[Find Tutor] im here");
+    FindTutorSwitchPageEvent currentEvent = event as FindTutorSwitchPageEvent;
+
+    LoginResponse currentUser = await getUserData();
+    String currentAccessToken = currentUser.tokens['access']['token'];
+    dynamic newTutors = await getTutors(TutorRequest(
+        perPage: 9,
+        numPage: currentEvent.pageSwitch,
+        accessToken: currentAccessToken));
+
+    if (newTutors != null) {
+      currentTutors = newTutors;
+    } else {
+      emit(FindTutorSwitchPageFailedState());
+    }
+
+    emit(FindTutorLoadedState());
   }
 
   FutureOr<void> FindTutorInitEventHandler(event, emit) async {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/model/history.dart';
 
 class HistoryCard extends StatelessWidget {
@@ -31,27 +32,31 @@ class HistoryCard extends StatelessWidget {
                                   currentHistory.currentTutor.avatarURL)
                               .image,
                         ),
+                        const SizedBox(
+                          width: 10,
+                        ),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(currentHistory.currentTutor.name),
-                            Text(currentHistory.currentTutor.nationality),
-                            const Text("Direct Message"),
+                            TextCommonBold("Name"),
+                            TextCommon(currentHistory.currentTutor.name),
+                            TextCommonBold("Nationality"),
+                            TextCommon(currentHistory.currentTutor.nationality),
+                            TextCommonBold("Request for lesson"),
+                            TextCommon(currentHistory.request),
                           ],
                         ),
                         //Time Schedule
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(getCurrentScheduleDay()),
+                            TextCommonBold(getCurrentScheduleDay()),
                           ],
                         )
                       ],
                     ),
                   ),
-                  const Text("Request for lesson"),
-                  Text(currentHistory.request),
                 ],
               ),
             ),
@@ -75,7 +80,7 @@ class HistoryCard extends StatelessWidget {
     int weekDay = currentDateTime.weekday - 1;
     int month = currentDateTime.month;
     int day = currentDateTime.day;
-    result = "${weekdayMapping[weekDay]},$month/$day";
+    result = "${weekdayMapping[weekDay]}, $month/$day";
 
     return result;
   }

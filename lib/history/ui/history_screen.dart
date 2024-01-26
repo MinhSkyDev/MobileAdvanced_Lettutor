@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lettutor/common_component/common_button.dart';
 import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/history/bloc/bloc/history_bloc.dart';
 import 'package:lettutor/history/ui/history_card.dart';
@@ -35,6 +36,28 @@ class _HistoryScreenState extends State<HistoryScreen> {
   void initState() {
     BlocProvider.of<HistoryBloc>(context).add(HistoryOnInitEvent());
     super.initState();
+  }
+
+  int currentPage = 1;
+
+  void goNextPage() {
+    currentPage += 1;
+    BlocProvider.of<HistoryBloc>(context)
+        .add(HistoryOnSwitchPageEvent(pageSwitch: currentPage));
+  }
+
+  void goPreviousPage() {
+    currentPage -= 1;
+    BlocProvider.of<HistoryBloc>(context)
+        .add(HistoryOnSwitchPageEvent(pageSwitch: currentPage));
+  }
+
+  void getValidIndex() {
+    if (currentPage <= 0) {
+      currentPage = 1;
+    } else {
+      currentPage -= 1;
+    }
   }
 
   @override
@@ -82,6 +105,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
           ),
           TextCommon(
             messageSchedule_2,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextCommonBoldBig("Your history"),
+              getNextAndPrevious(() {
+                goPreviousPage();
+              }, () {
+                goNextPage();
+              })
+            ],
           ),
           Expanded(
               child: ListView.builder(

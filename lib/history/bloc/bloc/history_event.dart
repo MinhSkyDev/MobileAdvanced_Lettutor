@@ -7,4 +7,7 @@ class HistoryOnInitEvent extends HistoryEvent {}
 
 class HistoryOnClickItemEvent extends HistoryEvent {}
 
-class HistoryOnSwitchPageEvent extends HistoryEvent {}
+class HistoryOnSwitchPageEvent extends HistoryEvent {
+  int pageSwitch;
+  HistoryOnSwitchPageEvent({required this.pageSwitch});
+}

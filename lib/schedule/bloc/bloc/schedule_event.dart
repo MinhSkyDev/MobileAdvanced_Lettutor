@@ -7,4 +7,7 @@ class ScheduleOnInitEvent extends ScheduleEvent {}
 
 class ScheduleOnClickEvent extends ScheduleEvent {}
 
-class ScheduleOnSwitchPageEvent extends ScheduleEvent {}
+class ScheduleOnSwitchPageEvent extends ScheduleEvent {
+  int pageSwitch;
+  ScheduleOnSwitchPageEvent({required this.pageSwitch});
+}

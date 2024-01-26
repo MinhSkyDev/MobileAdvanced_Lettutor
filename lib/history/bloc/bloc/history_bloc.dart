@@ -16,6 +16,10 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     on<HistoryOnInitEvent>((event, emit) async {
       await HistoryOnInitEventHandler(event, emit);
     });
+
+    on<HistoryOnSwitchPageEvent>((event, emit) async {
+      await HistoryOnSwitchPageEventHandler(event, emit);
+    });
   }
 
   FutureOr<void> HistoryOnInitEventHandler(event, emit) async {
@@ -27,6 +31,19 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     currentHistorySchedules =
         await getYourOwnHistorySchedule(currentAccessToken);
 
+    emit(HistoryLoadedState());
+  }
+
+  FutureOr<void> HistoryOnSwitchPageEventHandler(event, emit) async {
+    print("[History Bloc] : Im here");
+    String currentAccessToken = await getAccessToken();
+    HistoryOnSwitchPageEvent currentEvent = event as HistoryOnSwitchPageEvent;
+    dynamic newHistorySchedules = await getYourOwnHistorySchedulePage(
+        currentAccessToken, currentEvent.pageSwitch);
+
+    if (newHistorySchedules != null) {
+      currentHistorySchedules = newHistorySchedules;
+    }
     emit(HistoryLoadedState());
   }
 }

@@ -65,7 +65,9 @@ class _MyCourseScreenState extends State<MyCourseScreen> {
                 ),
                 Expanded(
                     child: ListView(
-                  children: [CourseCard(currentCourse: fakeCourse)],
+                  children: [
+                    CourseCard(onClick: () {}, currentCourse: fakeCourse)
+                  ],
                 ))
               ],
             ),

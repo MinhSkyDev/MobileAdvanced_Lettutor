@@ -28,7 +28,7 @@ Future<dynamic> getCourses(CourseRequest request) async {
   }
 }
 
-Future<void> getCourseInfo(CourseInfoRequest request) async {
+Future<dynamic> getCourseInfo(CourseInfoRequest request) async {
   final String apiUrl =
       'https://sandbox.api.lettutor.com/course/${request.courseId}';
 
@@ -43,13 +43,12 @@ Future<void> getCourseInfo(CourseInfoRequest request) async {
     if (response.statusCode == 200) {
       // Request was successful
       final jsonResponse = json.decode(response.body);
-      final courseInfo = CourseInfo.fromJson(jsonResponse);
+      final courseInfo = CourseDTO.fromJson(jsonResponse);
+      return courseInfo;
     } else {
-      print(
-          'Failed to get course information. Status code: ${response.statusCode}');
-      print('Response body: ${response.body}');
+      return null;
     }
   } catch (e) {
-    print('Error while getting course information: $e');
+    return null;
   }
 }

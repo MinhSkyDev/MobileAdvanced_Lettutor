@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lettutor/common_component/common_header_text.dart';
+import 'package:lettutor/course_detail/ui/course_detail.dart';
 import 'package:lettutor/courses/bloc/bloc/course_bloc.dart';
 import 'package:lettutor/courses/ui/courses.dart';
 import 'package:lettutor/dto/auth_dto.dart';
@@ -15,8 +16,6 @@ import 'package:lettutor/my_course/bloc/bloc/my_course_bloc.dart';
 import 'package:lettutor/schedule/bloc/bloc/schedule_bloc.dart';
 import 'package:lettutor/schedule/ui/Schedule.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../my_course/ui/my_course.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -110,7 +109,7 @@ class DashboardContent extends StatelessWidget {
       case 3:
         return const CoursesScreen();
       case 4:
-        return const MyCourseScreen();
+        return const CourseDetailScreen();
       default:
         return Container(); // Handle invalid index gracefully
     }

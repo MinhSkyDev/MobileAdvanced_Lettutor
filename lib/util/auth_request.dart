@@ -22,13 +22,10 @@ Future<int> registerUser(RegisterRequest request) async {
       final registerResponse = RegisterResponse.fromJson(jsonResponse);
     } else {
       // Request failed
-      print('Failed to register. Status code: ${response.statusCode}');
-      print('Response body: ${response.body}');
     }
 
     return response.statusCode;
   } catch (e) {
-    print('Error during registration: $e');
     return -1;
   }
 }

@@ -21,29 +21,40 @@ class TutorRecommendItem extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         child: SizedBox(
           width: size.width * 0.8,
-          height: size.height * 0.2,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Row(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  radius: 70,
-                  backgroundImage: Image.network(currentTutor.avatarURL).image,
+                Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 70,
+                      backgroundImage:
+                          Image.network(currentTutor.avatarURL).image,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextCommonBold("Name"),
+                          TextCommon(currentTutor.name),
+                          TextCommonBold("Nationality"),
+                          TextCommon(currentTutor.nationality),
+                          TextCommon("Skill: ${currentTutor.skills}"),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextCommon(currentTutor.name),
-                      TextCommon(currentTutor.nationality),
-                      TextCommon("Skill: ${currentTutor.skills}"),
-                    ],
-                  ),
-                )
+                const SizedBox(height: 10),
+                TextCommonBold("Description:"),
+                TextCommonDescription(currentTutor.description)
               ],
             ),
           ),

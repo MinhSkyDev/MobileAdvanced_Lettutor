@@ -8,3 +8,5 @@ class FindTutorInitial extends FindTutorState {}
 class FindTutorLoadingState extends FindTutorState {}
 
 class FindTutorLoadedState extends FindTutorState {}
+
+class FindTutorSwitchPageFailedState extends FindTutorState {}

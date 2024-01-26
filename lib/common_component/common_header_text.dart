@@ -19,6 +19,15 @@ Widget TextHeader2(String text) {
       ));
 }
 
+Widget TextHeader2White(String text) {
+  return Text(text,
+      style: GoogleFonts.montserrat(
+        fontSize: 15,
+        textStyle: const TextStyle(color: Colors.white),
+        fontWeight: FontWeight.w700,
+      ));
+}
+
 Widget TextHeader3(String text) {
   return Text(text,
       style: GoogleFonts.montserrat(
@@ -49,9 +58,42 @@ Widget TextForButton(String text) {
 Widget TextCommon(String text) {
   return Text(text,
       overflow: TextOverflow.ellipsis,
+      maxLines: 3,
       style: GoogleFonts.montserrat(
         fontSize: 13,
         textStyle: const TextStyle(color: Colors.black),
+        fontWeight: FontWeight.w500,
+      ));
+}
+
+Widget TextCommonDescription(String text) {
+  return Text(text,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 9,
+      style: GoogleFonts.montserrat(
+        fontSize: 13,
+        textStyle: const TextStyle(color: Colors.black),
+        fontWeight: FontWeight.w500,
+      ));
+}
+
+Widget TextCommonGrey(String text) {
+  return Text(text,
+      softWrap: true,
+      style: GoogleFonts.montserrat(
+        fontSize: 14,
+        textStyle: const TextStyle(color: Colors.grey),
+        fontWeight: FontWeight.w800,
+      ));
+}
+
+Widget TextCommonGreyLight(String text) {
+  return Text(text,
+      softWrap: true,
+      textAlign: TextAlign.justify,
+      style: GoogleFonts.montserrat(
+        fontSize: 14,
+        textStyle: const TextStyle(color: Colors.grey),
         fontWeight: FontWeight.w500,
       ));
 }
@@ -60,6 +102,15 @@ Widget TextCommonBold(String text) {
   return Text(text,
       style: GoogleFonts.montserrat(
         fontSize: 13,
+        textStyle: const TextStyle(color: Colors.black),
+        fontWeight: FontWeight.w800,
+      ));
+}
+
+Widget TextCommonBoldBig(String text) {
+  return Text(text,
+      style: GoogleFonts.montserrat(
+        fontSize: 16,
         textStyle: const TextStyle(color: Colors.black),
         fontWeight: FontWeight.w800,
       ));

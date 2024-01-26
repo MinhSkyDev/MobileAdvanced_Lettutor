@@ -26,3 +26,9 @@ int getRandomNumber(int min, int max) {
   final random = Random();
   return min + random.nextInt(max - min + 1);
 }
+
+Future<String> getAccessToken() async {
+  LoginResponse currentUser = await getUserData();
+  String currentAccessToken = currentUser.tokens['access']['token'];
+  return currentAccessToken;
+}

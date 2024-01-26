@@ -7,4 +7,8 @@ class CourseInitial extends CourseState {}
 
 class CourseLoadingState extends CourseState {}
 
-class CourseLaodedState extends CourseState {}
+class CourseLoadedState extends CourseState {}
+
+class CourseSwitchPageFailed extends CourseState {}
+
+class CourseViewDetailState extends CourseState {}

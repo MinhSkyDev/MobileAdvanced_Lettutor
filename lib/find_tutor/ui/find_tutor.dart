@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:horizontal_list/horizontal_list.dart';
+import 'package:lettutor/common_component/common_button.dart';
 import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/common_component/common_rounded_button.dart';
 import 'package:lettutor/common_component/common_textfield.dart';
 import 'package:lettutor/find_tutor/bloc/bloc/find_tutor_bloc.dart';
 import 'package:lettutor/find_tutor/ui/tutor_recommend_card.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 import '../../model/Tutor.dart';
 
@@ -20,6 +23,8 @@ class _FindTutorState extends State<FindTutor> {
   final tutorNameController = TextEditingController();
   final tutorNationalityController = TextEditingController();
   List<String> languageList = ["Vietnam", "Japan", "Korean"];
+
+  int currentPage = 1;
 
   DateTime selectedDate = DateTime.now();
 
@@ -36,6 +41,26 @@ class _FindTutorState extends State<FindTutor> {
     }
   }
 
+  void goNextPage() {
+    currentPage += 1;
+    BlocProvider.of<FindTutorBloc>(context)
+        .add(FindTutorSwitchPageEvent(pageSwitch: currentPage));
+  }
+
+  void goPreviousPage() {
+    currentPage -= 1;
+    BlocProvider.of<FindTutorBloc>(context)
+        .add(FindTutorSwitchPageEvent(pageSwitch: currentPage));
+  }
+
+  void getValidIndex() {
+    if (currentPage <= 0) {
+      currentPage = 1;
+    } else {
+      currentPage -= 1;
+    }
+  }
+
   @override
   void initState() {
     BlocProvider.of<FindTutorBloc>(context).add(FindTutorInitEvent());
@@ -46,7 +71,17 @@ class _FindTutorState extends State<FindTutor> {
   Widget build(BuildContext context) {
     return BlocConsumer(
       bloc: BlocProvider.of<FindTutorBloc>(context),
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is FindTutorSwitchPageFailedState) {
+          getValidIndex();
+          QuickAlert.show(
+            context: context,
+            type: QuickAlertType.error,
+            title: 'Oops...',
+            text: 'Switch Page Failed!',
+          );
+        }
+      },
       builder: (context, state) {
         if (state is FindTutorInitial || state is FindTutorLoadingState) {
           return const Center(
@@ -63,7 +98,6 @@ class _FindTutorState extends State<FindTutor> {
         BlocProvider.of<FindTutorBloc>(context);
     dynamic currenttutorsObjects = currentFindTutorBloc.currentTutors;
     List<dynamic> currentTutors = currenttutorsObjects["tutors"]['rows'];
-    print(currentTutors.length);
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
@@ -120,7 +154,9 @@ class _FindTutorState extends State<FindTutor> {
               height: 35,
               width: double.maxFinite,
               list: [
-                RoundedButtonSmallBold("Select a day", () {}),
+                RoundedButtonSmallBold("Select a day", () async {
+                  await _selectDate(context);
+                }),
                 RoundedButtonSmallBold("Start time ", () {}),
                 RoundedButtonSmallBold("End time", () {})
               ]
@@ -135,15 +171,28 @@ class _FindTutorState extends State<FindTutor> {
           //RECOMENDED TUTORS
           const SizedBox(height: 5),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextCommonBold(
+              TextCommonBoldBig(
                 "Recommended Tutors",
+              ),
+              getNextAndPrevious(
+                () {
+                  goPreviousPage();
+                },
+                () {
+                  goNextPage();
+                },
               ),
             ],
           ),
-          Expanded(
-              flex: 5,
-              child: ListView.builder(
+          const SizedBox(
+            height: 5,
+          ),
+          Flexible(
+              flex: 7,
+              child: ListView.separated(
+                separatorBuilder: (context, index) => const Divider(),
                 padding: const EdgeInsets.all(8),
                 itemCount: currentTutors.length,
                 itemBuilder: (BuildContext context, int index) {
