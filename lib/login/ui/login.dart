@@ -6,6 +6,7 @@ import "package:lettutor/common_component/login_textfield.dart";
 import "package:lettutor/dashboard/ui/dashboard.dart";
 import "package:lettutor/dto/auth_dto.dart";
 import "package:lettutor/login/bloc/bloc/login_bloc.dart";
+import "package:lettutor/register/ui/forget_password.dart";
 import "package:lettutor/register/ui/register.dart";
 import "package:quickalert/models/quickalert_type.dart";
 import "package:quickalert/widgets/quickalert_dialog.dart";
@@ -149,7 +150,9 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    moveToForgetPasswordScreen();
+                  },
                   child: TextCommon("Forgot password?"),
                 ),
               ],
@@ -181,5 +184,10 @@ class _LoginScreenState extends State<LoginScreen> {
   void moveToRegisterScreen() {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => const RegisterScreen()));
+  }
+
+  void moveToForgetPasswordScreen() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const ForgetPasswordScreen()));
   }
 }

@@ -4,6 +4,7 @@ import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/common_component/common_rounded_button.dart';
 import 'package:lettutor/common_component/login_textfield.dart';
 import 'package:lettutor/register/bloc/bloc/register_bloc.dart';
+import 'package:lettutor/register/ui/forget_password.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -106,7 +107,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        moveToForgetPasswordScreen();
+                      },
                       child: TextCommon("Forgot your password?"),
                     ),
                   ],
@@ -119,5 +122,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
         ),
       ),
     );
+  }
+
+  void moveToForgetPasswordScreen() {
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const ForgetPasswordScreen()));
   }
 }
