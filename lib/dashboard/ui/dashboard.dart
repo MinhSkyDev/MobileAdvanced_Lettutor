@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lettutor/common_component/common_header_text.dart';
-import 'package:lettutor/course_detail/ui/course_detail.dart';
 import 'package:lettutor/courses/bloc/bloc/course_bloc.dart';
 import 'package:lettutor/courses/ui/courses.dart';
 import 'package:lettutor/dto/auth_dto.dart';
@@ -13,6 +12,7 @@ import 'package:lettutor/find_tutor/ui/find_tutor.dart';
 import 'package:lettutor/history/bloc/bloc/history_bloc.dart';
 import 'package:lettutor/history/ui/history_screen.dart';
 import 'package:lettutor/my_course/bloc/bloc/my_course_bloc.dart';
+import 'package:lettutor/my_course/ui/my_course.dart';
 import 'package:lettutor/schedule/bloc/bloc/schedule_bloc.dart';
 import 'package:lettutor/schedule/ui/Schedule.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -109,7 +109,7 @@ class DashboardContent extends StatelessWidget {
       case 3:
         return const CoursesScreen();
       case 4:
-        return const CourseDetailScreen();
+        return const UserProfileScreen();
       default:
         return Container(); // Handle invalid index gracefully
     }
@@ -175,7 +175,7 @@ class SidePanel extends StatelessWidget {
       case 3:
         return 'Courses';
       case 4:
-        return 'My Courses';
+        return 'Setting';
       default:
         return '';
     }

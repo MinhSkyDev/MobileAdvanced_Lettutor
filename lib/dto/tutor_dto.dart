@@ -75,3 +75,35 @@ class Meeting {
   Color background;
   bool isAllDay = false;
 }
+
+class ReviewDto {
+  String bookingId;
+  String userId;
+  double rating;
+  String content;
+
+  ReviewDto({
+    required this.bookingId,
+    required this.userId,
+    required this.rating,
+    required this.content,
+  });
+
+  factory ReviewDto.fromJson(Map<String, dynamic> json) {
+    return ReviewDto(
+      bookingId: json['bookingId'],
+      userId: json['userId'],
+      rating: json['rating'],
+      content: json['content'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'bookingId': bookingId,
+      'userId': userId,
+      'rating': rating,
+      'content': content,
+    };
+  }
+}

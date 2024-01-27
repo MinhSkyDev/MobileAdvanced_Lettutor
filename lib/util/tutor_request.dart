@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:lettutor/dto/tutor_dto.dart';
+import 'package:lettutor/util/common_util.dart';
 
 Future<dynamic> getTutors(TutorRequest request) async {
   const String apiUrl = 'https://sandbox.api.lettutor.com/tutor/more';
@@ -51,5 +52,31 @@ Future<dynamic> getTutorDetail(String tutorId, String accessToken) async {
   } catch (e) {
     print('Error while getting tutors: $e');
     return null;
+  }
+}
+
+Future<int> giveReview(ReviewDto request) async {
+  const String apiUrl = 'https://sandbox.api.lettutor.com/user/feedbackTutor';
+  String accessToken = await getAccessToken();
+
+  try {
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken'
+      },
+      body: jsonEncode(request.toJson()),
+    );
+
+    print(response.body);
+    if (response.statusCode == 200) {
+      // Request was successful
+      return response.statusCode;
+    } else {
+      return response.statusCode;
+    }
+  } catch (e) {
+    return -1;
   }
 }

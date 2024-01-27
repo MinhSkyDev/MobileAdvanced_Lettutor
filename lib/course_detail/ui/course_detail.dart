@@ -168,6 +168,10 @@ class _CourseDetailScreenState extends State<CourseDetailScreen> {
             separatorBuilder: (context, index) => const Divider(),
             itemCount: courseDataDTO.topics?.length ?? 0,
           ),
+
+          const SizedBox(
+            height: 15,
+          ),
         ],
       ),
     );

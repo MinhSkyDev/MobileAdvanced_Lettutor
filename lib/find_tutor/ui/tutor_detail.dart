@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:lettutor/common_component/common_header_text.dart';
+import 'package:lettutor/common_component/common_rounded_button.dart';
+import 'package:lettutor/common_component/login_textfield.dart';
 import 'package:lettutor/dto/tutor_dto.dart';
 import 'package:lettutor/find_tutor/bloc/bloc/find_tutor_bloc.dart';
 import 'package:lettutor/find_tutor/ui/tutor_review_card.dart';
 import 'package:lettutor/util/common_util.dart';
 import 'package:lettutor/util/schedule_request.dart';
+import 'package:lettutor/util/tutor_request.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class TutorDetailScreen extends StatefulWidget {
@@ -186,12 +191,23 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
     return meetings;
   }
 
+  final reviewInput = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     FindTutorBloc findTutorBloc = BlocProvider.of<FindTutorBloc>(context);
     dynamic currentTutor = findTutorBloc.selectedTutorDetail;
     dynamic feedbacks = findTutorBloc.selectedTutor['feedbacks'];
     print("[Tutor Detail]: Re-load");
+
+    if (currentTutor['User']['avatar'] ==
+        "https://www.alliancerehabmed.com/wp-content/uploads/icon-avatar-default.png") {
+      int random = getRandomNumber(1, 1000);
+
+      currentTutor['User']['avatar'] =
+          "https://api.minimalavatars.com/avatar/$random/png";
+    }
+
     return Scaffold(
       appBar: AppBar(
           title: TextHeader2White(currentTutor['User']['name'] as String)),
@@ -219,16 +235,19 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextCommonBold(currentTutor['User']['name'] ?? ''),
-                      RatingBar.builder(
-                        itemSize: 15,
-                        itemBuilder: (context, _) => const Icon(
-                          Icons.star,
-                          color: Colors.redAccent,
-                          size: 5,
+                      IgnorePointer(
+                        child: RatingBar.builder(
+                          itemSize: 15,
+                          itemBuilder: (context, _) => const Icon(
+                            Icons.star,
+                            color: Colors.redAccent,
+                            size: 5,
+                          ),
+                          onRatingUpdate: (value) {},
+                          initialRating: double.parse(
+                              (currentTutor['avgRating']).toString()),
+                          allowHalfRating: true,
                         ),
-                        onRatingUpdate: (value) {},
-                        initialRating: (currentTutor['avgRating']),
-                        allowHalfRating: true,
                       ),
                       TextCommonBold(currentTutor['User']['country'] ?? ''),
                       const SizedBox(
@@ -290,6 +309,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
               const SizedBox(
                 height: 15,
               ),
+              TextHeader2("Book your class with this tutor"),
               _calendar(findTutorBloc.selectedTutorSchedule),
 
               const SizedBox(
@@ -298,7 +318,7 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
               TextCommonBold("Recent Review"),
               const SizedBox(height: 5),
               ListView.builder(
-                itemCount: 6,
+                itemCount: feedbacks.length >= 4 ? 4 : 0,
                 shrinkWrap: true,
                 itemBuilder: ((context, index) {
                   print(feedbacks[index]);
@@ -313,6 +333,40 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                   );
                 }),
               ),
+
+              const SizedBox(height: 15),
+              TextHeader2("Give this tutor a review: "),
+              const SizedBox(height: 5),
+              LoginTextField(
+                  controller: reviewInput,
+                  hintText: "Give your review",
+                  obscureText: false),
+              const SizedBox(height: 5),
+
+              RoundedButtonBold("Give review", () async {
+                print(currentTutorBloc.currentUserId);
+                int statusCode = await giveReview(ReviewDto(
+                    bookingId: "3d424fd6-e4c9-4325-a913-b7042e9c4d58",
+                    userId: currentTutorBloc.currentUserId,
+                    rating: 5.0,
+                    content: reviewInput.text));
+
+                if (statusCode == 200) {
+                  QuickAlert.show(
+                    context: context,
+                    type: QuickAlertType.success,
+                    title: 'Review',
+                    text: 'Give review successfully!',
+                  );
+                } else {
+                  QuickAlert.show(
+                    context: context,
+                    type: QuickAlertType.error,
+                    title: 'Errorr',
+                    text: 'Give review unsuccessfully!',
+                  );
+                }
+              })
             ],
           ),
         ),

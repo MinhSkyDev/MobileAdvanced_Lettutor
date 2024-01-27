@@ -1,78 +1,126 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lettutor/common_component/common_header_text.dart';
-import 'package:lettutor/courses/ui/course_card.dart';
-import 'package:lettutor/model/course.dart';
-import 'package:lettutor/my_course/bloc/bloc/my_course_bloc.dart';
+import 'dart:convert'; // For encoding the data to JSON
 
-class MyCourseScreen extends StatefulWidget {
-  const MyCourseScreen({super.key});
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:lettutor/util/common_util.dart';
+
+class UserProfileScreen extends StatefulWidget {
+  const UserProfileScreen({super.key});
 
   @override
-  State<MyCourseScreen> createState() => _MyCourseScreenState();
+  _UserProfileScreenState createState() => _UserProfileScreenState();
 }
 
-class _MyCourseScreenState extends State<MyCourseScreen> {
-  Course fakeCourse = Course(
-      courseDescription: "BEST C++ CLASS",
-      courseTitle: "C++ Advanced",
-      courseDifficulty: "Hard",
-      courseImageUrl:
-          "https://www.web-development-institute.com/wp-content/uploads/2021/03/c-plus-plus-advanced-course.jpg",
-      numLessons: 10);
+class _UserProfileScreenState extends State<UserProfileScreen> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController countryController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController birthdayController = TextEditingController();
+
+  final TextEditingController levelController = TextEditingController();
+  final TextEditingController learnTopicsController = TextEditingController();
+  final TextEditingController testPreparationsController =
+      TextEditingController();
+
+  late String userAvatar;
+
+  void updateUser() async {
+    // Create the PUT request body
+    Map<String, dynamic> requestBody = {
+      "name": nameController.text,
+      "country": countryController.text,
+      "phone": phoneController.text,
+      "birthday": birthdayController.text,
+      "level": levelController.text,
+      "learnTopics": [learnTopicsController.text],
+      "testPreparations": [],
+    };
+
+    // Encode the body to JSON
+    String jsonBody = jsonEncode(requestBody);
+
+    // Make the PUT request
+    String apiUrl =
+        "https://sandbox.api.lettutor.com/user/info"; // Replace with your API endpoint
+    String accessToken = await getAccessToken();
+    http.Response response = await http.put(
+      Uri.parse(apiUrl),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $accessToken'
+      },
+      body: jsonBody,
+    );
+
+    // Check the response status
+    if (response.statusCode == 200) {
+      // Successful update
+      print('User updated successfully');
+    } else {
+      // Handle error
+      print('Error updating user: ${response.statusCode}');
+      print(response.body);
+    }
+  }
+
+  Future<void> getThisAvatar() async {
+    String newAvatarUrl = await getAvatar();
+    setState(() {
+      userAvatar = newAvatarUrl;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer(
-      bloc: BlocProvider.of<MyCourseBloc>(context),
-      listener: (context, state) {},
-      builder: (context, state) {
-        if (state is MyCourseLoadedCourseState) {
-          return getMyCourseMainScreen();
-        } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-      },
-    );
-  }
-
-  Widget getMyCourseMainScreen() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(height: 15),
-          Expanded(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    TextHeader1(
-                      "Your Courses",
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    TextHeader2(
-                      "Your booked courses will be displayed here",
-                    )
-                  ],
-                ),
-                Expanded(
-                    child: ListView(
-                  children: [
-                    CourseCard(onClick: () {}, currentCourse: fakeCourse)
-                  ],
-                ))
-              ],
-            ),
+    getThisAvatar();
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              CircleAvatar(
+                radius: 70,
+                backgroundImage: Image.network(userAvatar).image,
+              ),
+              TextField(
+                controller: nameController,
+                decoration: const InputDecoration(labelText: 'Name'),
+              ),
+              TextField(
+                controller: countryController,
+                decoration: const InputDecoration(labelText: 'Country'),
+              ),
+              TextField(
+                controller: phoneController,
+                decoration: const InputDecoration(labelText: 'Phone'),
+              ),
+              TextField(
+                controller: birthdayController,
+                decoration: const InputDecoration(labelText: 'Birthday'),
+              ),
+              TextField(
+                controller: levelController,
+                decoration: const InputDecoration(labelText: 'Level'),
+              ),
+              TextField(
+                controller: learnTopicsController,
+                decoration: const InputDecoration(labelText: 'Learn Topics'),
+              ),
+              TextField(
+                controller: testPreparationsController,
+                decoration:
+                    const InputDecoration(labelText: 'Test Preparations'),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: updateUser,
+                child: const Text('Update User'),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

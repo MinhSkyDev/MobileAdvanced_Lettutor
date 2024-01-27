@@ -47,6 +47,7 @@ dependencies:
   video_player: ^2.8.2
   appinio_video_player: ^1.2.2
   syncfusion_flutter_calendar: ^24.1.47
+  jitsi_meet_flutter_sdk: ^0.1.9
 
 dev_dependencies:
   flutter_test:

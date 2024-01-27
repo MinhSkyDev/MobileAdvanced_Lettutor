@@ -33,6 +33,12 @@ Future<String> getAccessToken() async {
   return currentAccessToken;
 }
 
+Future<String> getAvatar() async {
+  LoginResponse currentUser = await getUserData();
+  String currentAccessToken = currentUser.user.avatar;
+  return currentAccessToken;
+}
+
 Future<String> getUserId() async {
   LoginResponse currentUser = await getUserData();
   String currentId = currentUser.user.id;

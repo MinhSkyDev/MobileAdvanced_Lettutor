@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jitsi_meet_flutter_sdk/jitsi_meet_flutter_sdk.dart';
 import 'package:lettutor/common_component/common_header_text.dart';
+import 'package:lettutor/common_component/common_rounded_button.dart';
 import 'package:lettutor/model/schedule..dart';
 
 class ScheduleCard extends StatelessWidget {
@@ -82,6 +84,23 @@ class ScheduleCard extends StatelessWidget {
                   ),
                   displayText("Request for lesson"),
                   displayText(currentSchedule.request),
+                  RoundedButtonBold("Go meeting", () {
+                    var jitsiMeet = JitsiMeet();
+                    var options = JitsiMeetConferenceOptions(
+                      serverURL: "https://meet.jit.si",
+                      room: "jitsiIsAwesomeWithFlutter",
+                      configOverrides: {
+                        "startWithAudioMuted": false,
+                        "startWithVideoMuted": false,
+                        "subject": "Jitsi with Flutter",
+                      },
+                      featureFlags: {"unsaferoomwarning.enabled": false},
+                      userInfo: JitsiMeetUserInfo(
+                          displayName: "Pham Hoang Hai",
+                          email: "phhai@ymail.com"),
+                    );
+                    jitsiMeet.join(options);
+                  }),
                 ],
               ),
             ),
