@@ -5,6 +5,8 @@ import 'package:lettutor/common_component/common_rounded_button.dart';
 import 'package:lettutor/common_component/login_textfield.dart';
 import 'package:lettutor/register/bloc/bloc/register_bloc.dart';
 import 'package:lettutor/register/ui/forget_password.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -23,7 +25,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return BlocConsumer<RegisterBloc, RegisterState>(
       bloc: registerBloc,
       listener: (context, state) {
-        // TODO: implement listener
+        if (state is RegisterFailedRegisterState) {
+          QuickAlert.show(
+            context: context,
+            type: QuickAlertType.error,
+            title: 'Oops...',
+            text: 'Register failed...',
+          );
+        } else if (state is RegisterSuccessRegisterState) {
+          QuickAlert.show(
+            context: context,
+            type: QuickAlertType.success,
+            title: 'Yayyyy!',
+            text: 'Register Successfully...',
+          );
+        }
       },
       builder: (context, state) {
         switch (state.runtimeType) {
@@ -36,87 +52,105 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
+  void onRegister() {
+    // RegisterRequest request = RegisterRequest(
+    //     email: usernameInput.text, password: passwordInput.text, source: null);
+    registerBloc.add(RegisterRegisterUserEvent(
+        email: usernameInput.text, password: passwordInput.text));
+  }
+
   Widget RegisterLoginView() {
     return Scaffold(
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextHeader1("Register Sreen"),
-                const SizedBox(height: 5),
-                TextHeader3("Register your account in Lettutor!"),
-                const SizedBox(
-                  height: 25,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TextCommon("Username"),
-                    ],
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 25),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 100),
+                  TextHeader1("Register Sreen"),
+                  const SizedBox(height: 5),
+                  TextHeader3("Register your account in Lettutor!"),
+                  const SizedBox(
+                    height: 25,
                   ),
-                ),
-                LoginTextField(
-                  controller: usernameInput,
-                  hintText: 'Username',
-                  obscureText: false,
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TextCommon("Password"),
-                    ],
-                  ),
-                ),
-                LoginTextField(
-                    controller: passwordInput,
-                    hintText: "Password",
-                    obscureText: true),
-                const SizedBox(
-                  height: 25,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TextCommon("Re-Enter Password"),
-                    ],
-                  ),
-                ),
-                LoginTextField(
-                    controller: reEnterPasswordInput,
-                    hintText: "Re-Enter Password",
-                    obscureText: true),
-                const SizedBox(
-                  height: 5,
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        moveToForgetPasswordScreen();
-                      },
-                      child: TextCommon("Forgot your password?"),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TextCommon("Username"),
+                      ],
                     ),
-                  ],
-                ),
-                const SizedBox(height: 25),
-                RoundedButtonBold("Register", () {}),
-              ],
+                  ),
+                  LoginTextField(
+                    controller: usernameInput,
+                    hintText: 'Username',
+                    obscureText: false,
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TextCommon("Password"),
+                      ],
+                    ),
+                  ),
+                  LoginTextField(
+                      controller: passwordInput,
+                      hintText: "Password",
+                      obscureText: true),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TextCommon("Re-Enter Password"),
+                      ],
+                    ),
+                  ),
+                  LoginTextField(
+                      controller: reEnterPasswordInput,
+                      hintText: "Re-Enter Password",
+                      obscureText: true),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          moveToForgetPasswordScreen();
+                        },
+                        child: TextCommon("Forgot your password?"),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 25),
+                  RoundedButtonBold("Register", () {
+                    onRegister();
+                  }),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  RoundedButtonBold("Login", () {
+                    Navigator.pop(context);
+                  })
+                ],
+              ),
             ),
           ),
         ),

@@ -5,6 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:lettutor/common_component/common_header_text.dart';
 import 'package:lettutor/dto/tutor_dto.dart';
 import 'package:lettutor/find_tutor/bloc/bloc/find_tutor_bloc.dart';
+import 'package:lettutor/find_tutor/ui/tutor_review_card.dart';
 import 'package:lettutor/util/common_util.dart';
 import 'package:lettutor/util/schedule_request.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
@@ -20,11 +21,13 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
   late VideoPlayerController _videoController;
   late CustomVideoPlayerController _customVideoPlayerController;
   late Future<void> _initializeVideoPlayerFuture;
+  late FindTutorBloc currentTutorBloc;
 
   late String userId;
   @override
   void initState() {
     FindTutorBloc findTutorBloc = BlocProvider.of<FindTutorBloc>(context);
+    currentTutorBloc = findTutorBloc;
     dynamic currentTutor = findTutorBloc.selectedTutorDetail;
     _videoController = VideoPlayerController.networkUrl(
       Uri.parse(
@@ -88,7 +91,11 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                 int rs = await bookLesson(
                     appointmentDetails.scheduleId, "TemporaryMQL");
                 if (rs == 200) {
+                  print("[Tutor Detail]: After booked tutor");
                   Navigator.pop(context, 'Success');
+                  await currentTutorBloc.updateTutorSchedule(
+                      currentTutorBloc.selectedTutor['userId']);
+                  setState(() {});
                 } else {
                   Navigator.pop(context, 'Failed');
                 }
@@ -110,7 +117,10 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                 child: const Text('Cancel'),
               ),
               TextButton(
-                onPressed: () => Navigator.pop(context, 'Ok'),
+                onPressed: () {
+                  Navigator.pop(context, 'Ok');
+                  setState(() {});
+                },
                 child: const Text('Ok'),
               ),
             ],
@@ -180,7 +190,8 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
   Widget build(BuildContext context) {
     FindTutorBloc findTutorBloc = BlocProvider.of<FindTutorBloc>(context);
     dynamic currentTutor = findTutorBloc.selectedTutorDetail;
-
+    dynamic feedbacks = findTutorBloc.selectedTutor['feedbacks'];
+    print("[Tutor Detail]: Re-load");
     return Scaffold(
       appBar: AppBar(
           title: TextHeader2White(currentTutor['User']['name'] as String)),
@@ -280,6 +291,28 @@ class _TutorDetailScreenState extends State<TutorDetailScreen> {
                 height: 15,
               ),
               _calendar(findTutorBloc.selectedTutorSchedule),
+
+              const SizedBox(
+                height: 15,
+              ),
+              TextCommonBold("Recent Review"),
+              const SizedBox(height: 5),
+              ListView.builder(
+                itemCount: 6,
+                shrinkWrap: true,
+                itemBuilder: ((context, index) {
+                  print(feedbacks[index]);
+                  print(feedbacks[index]['rating']);
+                  return TutorReview(
+                    currentAvatarUrl:
+                        feedbacks[index]['firstInfo']['avatar'].toString(),
+                    currentName:
+                        feedbacks[index]['firstInfo']['name'].toString(),
+                    rating: double.parse(feedbacks[index]['rating'].toString()),
+                    reviewMessage: feedbacks[index]['content'].toString(),
+                  );
+                }),
+              ),
             ],
           ),
         ),

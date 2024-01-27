@@ -15,3 +15,8 @@ class FindTutorSwitchPageEvent extends FindTutorEvent {
   int pageSwitch;
   FindTutorSwitchPageEvent({required this.pageSwitch});
 }
+
+class FindTutorUpdateSchedulesBookEvent extends FindTutorEvent {
+  String userId;
+  FindTutorUpdateSchedulesBookEvent({required this.userId});
+}

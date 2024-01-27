@@ -29,6 +29,26 @@ class FindTutorBloc extends Bloc<FindTutorEvent, FindTutorState> {
     on<FindTutorSwitchPageEvent>((event, emit) async {
       await FindTutorSwitchPageEventHandler(event, emit);
     });
+
+    on<FindTutorUpdateSchedulesBookEvent>((event, emit) async {
+      await FindTutorUpdateSchedulesBookEventHandler(event, emit);
+    });
+  }
+
+  FutureOr<void> FindTutorUpdateSchedulesBookEventHandler(event, emit) async {
+    print("[Flutter Bloc]: After Clicked");
+    String currentAccessToken = await getAccessToken();
+    FindTutorUpdateSchedulesBookEvent currentEvent =
+        event as FindTutorUpdateSchedulesBookEvent;
+    selectedTutorSchedule =
+        await getTutorSchedule(currentAccessToken, currentEvent.userId);
+    selectedTutorSchedule = selectedTutorSchedule['scheduleOfTutor'];
+  }
+
+  FutureOr<void> updateTutorSchedule(String tutorId) async {
+    String currentAccessToken = await getAccessToken();
+    selectedTutorSchedule = await getTutorSchedule(currentAccessToken, tutorId);
+    selectedTutorSchedule = selectedTutorSchedule['scheduleOfTutor'];
   }
 
   FutureOr<void> FindTutorOnClickEventHandler(event, emit) async {
